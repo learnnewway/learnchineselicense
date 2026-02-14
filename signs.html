@@ -41,6 +41,7 @@
         .accent-bar-yellow { border-left: 6px solid #eab308; }
         .accent-bar-blue { border-left: 6px solid #3b82f6; }
         .accent-bar-police { border-top: 6px solid #4f46e5; }
+        .accent-bar-indigo { border-left: 6px solid #4f46e5; }
 
         /* Asymmetrical Grid Layout */
         .bento-grid {
@@ -85,39 +86,33 @@
                     <p class="bg-white p-4 rounded-xl border border-indigo-100 shadow-sm"><strong class="text-indigo-700 text-lg block mb-1">Pull Over</strong> Left arm raised straight up, right arm points down and sweeps horizontally. Pull over to the right and stop.</p>
                 </div>
                 <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-sm flex flex-col items-center justify-center text-center h-full min-h-[300px]">
-                    
-                    <p class="text-sm text-stone-400 mt-4 italic">Memorize the arm angles. The left arm usually indicates the target traffic, the right arm indicates the action.</p>
+                    <img src="https://placehold.co/400x300/eef2ff/4f46e5?text=Memorize\nArm+Vectors" alt="Police Signals" class="rounded-lg mb-4 opacity-80" />
+                    <p class="text-sm text-stone-400 italic">Memorize the arm angles. The left arm usually indicates the target traffic, the right arm indicates the action.</p>
                 </div>
             </div>
         </div>
 
         <div class="col-4 info-card accent-bar-red p-6 md:p-8 panel-animate bg-red-50/30">
             <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-red-600 mr-2"><i class="fas fa-ban"></i></span> Prohibition Signs</h2>
-            <div class="mb-4">
-                
-            </div>
             <div class="space-y-3 text-sm text-stone-600 font-medium">
                 <p><strong class="text-red-700">Shape/Color:</strong> White background, red circle, black symbol (often with a red slash).</p>
                 <p><strong class="text-red-700">Logic:</strong> "Do Not Do This."</p>
                 <ul class="list-disc pl-5 space-y-1 mt-2">
-                    <li>No Entry (Solid red circle with white bar)</li>
-                    <li>No Parking (Red circle, blue background, red slash)</li>
-                    <li>No Honking (Trumpet with red slash)</li>
+                    <li>No Entry</li>
+                    <li>No Parking</li>
+                    <li>No Honking</li>
                 </ul>
             </div>
         </div>
 
         <div class="col-4 info-card accent-bar-yellow p-6 md:p-8 panel-animate bg-yellow-50/30">
             <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-yellow-600 mr-2"><i class="fas fa-exclamation-triangle"></i></span> Warning Signs</h2>
-            <div class="mb-4">
-                
-            </div>
             <div class="space-y-3 text-sm text-stone-600 font-medium">
                 <p><strong class="text-yellow-700">Shape/Color:</strong> Yellow triangle, black border, black symbol.</p>
                 <p><strong class="text-yellow-700">Logic:</strong> "Hazard Ahead, Slow Down."</p>
                 <ul class="list-disc pl-5 space-y-1 mt-2">
                     <li>Sharp Curve Ahead</li>
-                    <li>Pedestrian Crossing Ahead (Different from the actual crossing zone)</li>
+                    <li>Pedestrian Crossing Ahead</li>
                     <li>Village/Town Ahead</li>
                 </ul>
             </div>
@@ -125,37 +120,43 @@
 
         <div class="col-4 info-card accent-bar-blue p-6 md:p-8 panel-animate bg-blue-50/30">
             <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-blue-600 mr-2"><i class="fas fa-arrow-circle-right"></i></span> Mandatory Signs</h2>
-            <div class="mb-4">
-                
-            </div>
             <div class="space-y-3 text-sm text-stone-600 font-medium">
                 <p><strong class="text-blue-700">Shape/Color:</strong> Blue circle, white symbol.</p>
                 <p><strong class="text-blue-700">Logic:</strong> "You MUST Do This."</p>
                 <ul class="list-disc pl-5 space-y-1 mt-2">
                     <li>Go Straight Only</li>
                     <li>Turn Left Only</li>
-                    <li>Honk Horn (Usually required on blind mountain curves)</li>
+                    <li>Honk Horn</li>
                 </ul>
             </div>
         </div>
 
-        <div class="col-12 info-card p-6 md:p-8 panel-animate bg-stone-800 text-stone-100">
-            <h2 class="text-2xl font-bold text-white mb-6 flex items-center"><i class="fas fa-road text-stone-400 mr-3"></i> Road Surface Markings</h2>
+        <div class="col-12 info-card accent-bar-indigo p-6 md:p-8 panel-animate mt-4 bg-indigo-50/30">
+            <h2 class="text-2xl font-bold text-stone-800 mb-6 flex items-center">
+                <span class="bg-indigo-100 text-indigo-600 p-2 rounded-lg mr-3"><i class="fas fa-brain"></i></span> 
+                Signal Recognition Simulator
+            </h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="border-l-4 border-yellow-400 pl-4">
-                    <h3 class="text-yellow-400 font-bold text-lg mb-2">Yellow Lines</h3>
-                    <p class="text-sm text-stone-300">Separate traffic flowing in <strong class="text-white">opposite</strong> directions. A solid yellow line means NO crossing or U-turns. A broken yellow line means you can cross if safe.</p>
-                </div>
-                
-                <div class="border-l-4 border-white pl-4">
-                    <h3 class="text-white font-bold text-lg mb-2">White Lines</h3>
-                    <p class="text-sm text-stone-300">Separate traffic flowing in the <strong class="text-white">same</strong> direction. Solid white means no lane changing. Broken white means lane changing is permitted.</p>
+            <div id="flashcard-container" class="bg-white p-6 md:p-8 rounded-2xl border border-indigo-100 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 left-0 h-1 bg-stone-100 w-full">
+                    <div id="progress-bar" class="h-full bg-indigo-500 transition-all duration-300 w-0"></div>
                 </div>
 
-                <div class="border-l-4 border-stone-500 pl-4">
-                    <h3 class="text-stone-300 font-bold text-lg mb-2">Diamond Markings</h3>
-                    <p class="text-sm text-stone-300">White diamond shapes painted on the lane indicate a pedestrian crosswalk is approaching. You MUST decelerate.</p>
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="w-full md:w-1/3 bg-stone-50 rounded-xl p-6 flex flex-col items-center justify-center min-h-[250px] border border-stone-200 shadow-inner">
+                        <img id="card-visual" src="" alt="Traffic Sign Visual" class="h-32 object-contain mb-4 drop-shadow-sm" />
+                        <p id="card-desc" class="text-stone-500 font-medium text-center text-sm px-4">Visual Prompt</p>
+                    </div>
+
+                    <div class="w-full md:w-2/3">
+                        <h3 id="question-text" class="text-xl font-bold text-stone-800 mb-4">Booting Simulator...</h3>
+                        <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            </div>
+                        
+                        <div id="feedback-area" class="mt-4 hidden rounded-lg p-4 font-bold text-sm border"></div>
+                        
+                        <button id="next-q-btn" class="mt-4 hidden px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition w-full md:w-auto shadow-lg shadow-indigo-600/20" onclick="nextCard()">Next Signal <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,7 +170,128 @@
                 { y: 40, opacity: 0 }, 
                 { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
             );
+            loadCard(); // Boot the simulator
         });
+
+        // Flashcard Data Bank (Upgraded with Image URLs)
+        const flashcards = [
+            {
+                image: "https://placehold.co/200x200/e0e7ff/4f46e5?text=Police\nStop+Signal",
+                desc: "Police: Left arm raised straight up, palm facing forward.",
+                q: "What does this police hand signal indicate?",
+                opts: ["Pull over to the right", "Stop all traffic", "Proceed straight", "Turn left"],
+                ans: 1,
+                exp: "This is the universal Stop Signal. When the police officer raises their left hand straight up, all traffic must halt behind the stop line."
+            },
+            {
+                image: "https://placehold.co/200x200/e0e7ff/4f46e5?text=Police\nPull+Over",
+                desc: "Police: Left arm raised up, right arm pointing down and sweeping horizontally.",
+                q: "How should you react to this signal?",
+                opts: ["Accelerate and pass", "Stop immediately in lane", "Pull over to the side and stop", "Turn right"],
+                ans: 2,
+                exp: "This is the Pull Over signal. The left arm commands you to stop, and the right arm sweeps to direct you to the side of the road."
+            },
+            {
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/China_road_sign_Prohibition_42.svg/200px-China_road_sign_Prohibition_42.svg.png",
+                desc: "Sign: White background, solid red circle border, red slash.",
+                q: "What does this specific red circle sign indicate?",
+                opts: ["No Parking", "No Entry", "No U-Turn", "Stop and Yield"],
+                ans: 1,
+                exp: "A red circle with a horizontal white bar or a blank center indicates No Entry. Red circles always indicate strict prohibition."
+            },
+            {
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/China_road_sign_Mandatory_01.svg/200px-China_road_sign_Mandatory_01.svg.png",
+                desc: "Sign: Solid blue circle, white arrow pointing straight up.",
+                q: "What does this mandatory sign require you to do?",
+                opts: ["One-way street ahead", "Go straight only", "Minimum speed limit 50", "Expressway entrance ahead"],
+                ans: 1,
+                exp: "A white arrow in a blue circle means you MUST follow that direction. In this case, Go Straight Only. (A one-way street sign is a rectangle, not a circle)."
+            }
+        ];
+
+        let currentCard = 0;
+
+        function loadCard() {
+            const card = flashcards[currentCard];
+            // Inject Image URL
+            document.getElementById('card-visual').src = card.image;
+            document.getElementById('card-desc').innerText = card.desc;
+            document.getElementById('question-text').innerText = `Question ${currentCard + 1}: ${card.q}`;
+            
+            const optionsGrid = document.getElementById('options-grid');
+            optionsGrid.innerHTML = '';
+            
+            card.opts.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'text-left p-4 rounded-xl bg-white border-2 border-stone-100 hover:border-indigo-400 hover:bg-indigo-50 text-stone-700 font-bold transition shadow-sm';
+                btn.innerText = opt;
+                btn.onclick = () => checkCardAnswer(index, btn);
+                optionsGrid.appendChild(btn);
+            });
+
+            document.getElementById('feedback-area').classList.add('hidden');
+            document.getElementById('next-q-btn').classList.add('hidden');
+            
+            // Update progress
+            const progress = ((currentCard) / flashcards.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function checkCardAnswer(selectedIndex, btnElement) {
+            const card = flashcards[currentCard];
+            const feedback = document.getElementById('feedback-area');
+            const buttons = document.getElementById('options-grid').children;
+            
+            // Disable all buttons to prevent double clicking
+            for(let b of buttons) {
+                b.disabled = true;
+                b.classList.add('opacity-60', 'cursor-not-allowed');
+                b.classList.remove('hover:border-indigo-400', 'hover:bg-indigo-50');
+            }
+
+            feedback.className = 'mt-4 rounded-lg p-4 font-bold text-sm border';
+
+            if (selectedIndex === card.ans) {
+                btnElement.classList.replace('bg-white', 'bg-teal-500');
+                btnElement.classList.replace('border-stone-100', 'border-teal-600');
+                btnElement.classList.replace('text-stone-700', 'text-white');
+                btnElement.classList.remove('opacity-60');
+                
+                feedback.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Correct! ${card.exp}`;
+                feedback.classList.add('bg-teal-50', 'text-teal-800', 'border-teal-200');
+            } else {
+                btnElement.classList.replace('bg-white', 'bg-red-500');
+                btnElement.classList.replace('border-stone-100', 'border-red-600');
+                btnElement.classList.replace('text-stone-700', 'text-white');
+                btnElement.classList.remove('opacity-60');
+                
+                feedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Incorrect. ${card.exp}`;
+                feedback.classList.add('bg-red-50', 'text-red-800', 'border-red-200');
+                
+                // Highlight the correct answer in green
+                buttons[card.ans].classList.replace('bg-white', 'bg-teal-500');
+                buttons[card.ans].classList.replace('border-stone-100', 'border-teal-600');
+                buttons[card.ans].classList.replace('text-stone-700', 'text-white');
+                buttons[card.ans].classList.remove('opacity-60');
+            }
+            
+            document.getElementById('next-q-btn').classList.remove('hidden');
+            document.getElementById('progress-bar').style.width = `${((currentCard + 1) / flashcards.length) * 100}%`;
+            
+            if (currentCard === flashcards.length - 1) {
+                document.getElementById('next-q-btn').innerHTML = 'Restart Simulator <i class="fas fa-redo ml-2"></i>';
+            }
+        }
+
+        function nextCard() {
+            if (currentCard < flashcards.length - 1) {
+                currentCard++;
+                loadCard();
+            } else {
+                currentCard = 0; // Loop back to start
+                loadCard();
+            }
+        }
     </script>
 </body>
 </html>
