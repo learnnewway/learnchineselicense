@@ -3,55 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subject 1: Master Telemetry</title>
+    <title>Subject 1 Study Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Syncopate:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap');
         
         body {
-            background-color: #050505;
-            color: #e5e7eb;
-            font-family: 'JetBrains Mono', monospace;
+            background-color: #fafaf9; /* stone-50 */
+            color: #292524; /* stone-800 */
+            font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
         }
         
-        h1, h2, h3, .sync-font {
-            font-family: 'Syncopate', sans-serif;
-            letter-spacing: -0.05em;
+        h1, h2, h3, .display-font {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.03em;
         }
 
-        .glass-panel {
-            background: rgba(15, 20, 30, 0.7);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            border-left: 4px solid #38bdf8;
-            border-radius: 4px;
+        .info-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
+            border: 1px solid #f5f5f4;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(234, 88, 12, 0.15); /* Orange tinted shadow */
         }
         
-        .glass-panel.gold-accent {
-            border-left: 4px solid #fbbf24;
-            border-color: rgba(251, 191, 36, 0.2);
-        }
-
-        .glass-panel.red-accent {
-            border-left: 4px solid #ef4444;
-            border-color: rgba(239, 68, 68, 0.2);
-        }
+        .accent-bar-orange { border-left: 6px solid #ea580c; }
+        .accent-bar-teal { border-left: 6px solid #0d9488; }
+        .accent-bar-indigo { border-left: 6px solid #4f46e5; }
 
         .data-row {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid #f5f5f4;
+            transition: all 0.2s;
         }
         .data-row:hover {
-            background: rgba(56, 189, 248, 0.05);
-            transform: translateX(8px);
-            border-left: 2px solid #38bdf8;
-            padding-left: 1rem;
+            background-color: #fff7ed; /* orange-50 */
+            padding-left: 0.5rem;
         }
 
-        /* Asymmetrical Grid */
+        /* Asymmetrical Grid Layout */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -66,143 +65,141 @@
         @media (max-width: 1024px) {
             .col-8, .col-4, .col-6 { grid-column: span 12; }
         }
-        
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #38bdf8; }
     </style>
 </head>
 <body class="p-4 md:p-8 lg:p-12">
 
     <div class="max-w-7xl mx-auto bento-grid">
         
-        <header class="col-12 mb-6 flex flex-col md:flex-row justify-between items-end border-b border-gray-800 pb-6 panel-animate">
+        <header class="col-12 mb-8 flex flex-col md:flex-row justify-between items-end border-b-2 border-stone-200 pb-6 panel-animate">
             <div>
-                <p class="text-sky-400 text-sm font-bold tracking-widest mb-2 uppercase">Subject 1 // Advanced Database</p>
-                <h1 class="text-4xl md:text-6xl font-bold text-white uppercase">Engineered <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600">Elegance</span></h1>
+                <p class="text-orange-600 text-sm font-bold tracking-widest mb-2 uppercase"><i class="fas fa-flag-checkered mr-2"></i>Subject 1 Exam Guide</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-stone-800">License <span class="text-orange-600">Conversion</span></h1>
             </div>
-            <div class="text-right mt-4 md:mt-0">
-                <p class="text-gray-500 text-sm">System Status: <span class="text-green-400">ONLINE</span></p>
-                <p class="text-gray-500 text-sm">Data Integrity: <span class="text-sky-400">100%</span></p>
+            <div class="text-right mt-4 md:mt-0 bg-white px-5 py-3 rounded-2xl shadow-sm border border-stone-100">
+                <p class="text-stone-500 font-semibold text-sm">Pass Requirement: <span class="text-teal-600 text-lg font-bold">90/100</span></p>
             </div>
         </header>
 
-        <div class="col-8 glass-panel red-accent p-6 md:p-8 panel-animate">
-            <h2 class="text-2xl text-white mb-6 border-b border-red-500/30 pb-2"><i class="fas fa-gavel mr-3 text-red-500"></i>The Revocation Matrix (Bans)</h2>
-            <div class="space-y-4 text-sm">
-                <div class="data-row p-3 flex justify-between items-center">
-                    <span class="text-gray-300 w-2/3">Fleeing a fatal accident (constituting a crime)</span>
-                    <span class="text-red-400 font-bold bg-red-900/30 px-3 py-1 rounded">LIFETIME BAN</span>
+        <div class="col-8 info-card accent-bar-orange p-6 md:p-8 panel-animate">
+            <h2 class="text-2xl font-bold text-stone-800 mb-6 flex items-center"><span class="bg-orange-100 text-orange-600 p-2 rounded-lg mr-3"><i class="fas fa-ban"></i></span> The Revocation Matrix (Bans)</h2>
+            <div class="space-y-2 text-stone-600 font-medium">
+                <div class="data-row p-3 flex justify-between items-center rounded-lg">
+                    <span class="w-2/3">Fleeing a fatal accident (constituting a crime)</span>
+                    <span class="text-red-700 font-bold bg-red-100 px-3 py-1 rounded-full text-xs tracking-wide">LIFETIME BAN</span>
                 </div>
-                <div class="data-row p-3 flex justify-between items-center">
-                    <span class="text-gray-300 w-2/3">DUI causing a major traffic accident</span>
-                    <span class="text-red-400 font-bold bg-red-900/30 px-3 py-1 rounded">LIFETIME BAN</span>
+                <div class="data-row p-3 flex justify-between items-center rounded-lg">
+                    <span class="w-2/3">DUI causing a major traffic accident</span>
+                    <span class="text-red-700 font-bold bg-red-100 px-3 py-1 rounded-full text-xs tracking-wide">LIFETIME BAN</span>
                 </div>
-                <div class="data-row p-3 flex justify-between items-center">
-                    <span class="text-gray-300 w-2/3">Drunk driving a commercial vehicle</span>
-                    <span class="text-orange-400 font-bold bg-orange-900/30 px-3 py-1 rounded">10 YEAR BAN</span>
+                <div class="data-row p-3 flex justify-between items-center rounded-lg">
+                    <span class="w-2/3">Drunk driving a commercial vehicle</span>
+                    <span class="text-orange-700 font-bold bg-orange-100 px-3 py-1 rounded-full text-xs tracking-wide">10 YEAR BAN</span>
                 </div>
-                <div class="data-row p-3 flex justify-between items-center">
-                    <span class="text-gray-300 w-2/3">Drunk driving (Standard DUI) causing accident</span>
-                    <span class="text-yellow-400 font-bold bg-yellow-900/30 px-3 py-1 rounded">5 YEAR BAN</span>
+                <div class="data-row p-3 flex justify-between items-center rounded-lg">
+                    <span class="w-2/3">Drunk driving (Standard DUI) causing accident</span>
+                    <span class="text-amber-700 font-bold bg-amber-100 px-3 py-1 rounded-full text-xs tracking-wide">5 YEAR BAN</span>
                 </div>
-                <div class="data-row p-3 flex justify-between items-center">
-                    <span class="text-gray-300 w-2/3">Fraud/Cheating to obtain license</span>
-                    <span class="text-gray-400 font-bold bg-gray-800 px-3 py-1 rounded">3 YEAR BAN</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-4 glass-panel gold-accent p-6 md:p-8 panel-animate">
-            <h2 class="text-xl text-white mb-6 border-b border-yellow-500/30 pb-2"><i class="fas fa-file-invoice-dollar mr-3 text-yellow-500"></i>Fines Database</h2>
-            <div class="space-y-4 text-sm">
-                <div class="bg-gray-900/50 p-4 rounded border border-gray-800 hover:border-yellow-500/50 transition">
-                    <p class="text-yellow-400 font-bold text-lg mb-1">20 - 200 RMB</p>
-                    <p class="text-gray-400 text-xs">Illegal parking, minor continuous infractions where driver refuses to move.</p>
-                </div>
-                <div class="bg-gray-900/50 p-4 rounded border border-gray-800 hover:border-yellow-500/50 transition">
-                    <p class="text-yellow-400 font-bold text-lg mb-1">200 - 2,000 RMB</p>
-                    <p class="text-gray-400 text-xs">Driving without a license, speeding >50%, fleeing an accident (non-criminal).</p>
-                </div>
-                <div class="bg-gray-900/50 p-4 rounded border border-gray-800 hover:border-yellow-500/50 transition">
-                    <p class="text-yellow-400 font-bold text-lg mb-1">2,000 - 5,000 RMB</p>
-                    <p class="text-gray-400 text-xs">Using forged or altered license plates, certificates, or driving licenses.</p>
+                <div class="data-row p-3 flex justify-between items-center rounded-lg">
+                    <span class="w-2/3">Fraud/Cheating to obtain license</span>
+                    <span class="text-stone-700 font-bold bg-stone-200 px-3 py-1 rounded-full text-xs tracking-wide">3 YEAR BAN</span>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 glass-panel p-6 md:p-8 panel-animate">
-            <h2 class="text-2xl text-white mb-6 border-b border-sky-500/30 pb-2"><i class="fas fa-sort-amount-down mr-3 text-sky-400"></i>Point Deduction Ledger</h2>
+        <div class="col-4 info-card accent-bar-teal p-6 md:p-8 panel-animate bg-teal-50/30">
+            <h2 class="text-xl font-bold text-stone-800 mb-6 flex items-center"><span class="bg-teal-100 text-teal-600 p-2 rounded-lg mr-3"><i class="fas fa-file-invoice-dollar"></i></span> Fines Database</h2>
+            <div class="space-y-4 text-sm">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-teal-100">
+                    <p class="text-teal-700 font-bold text-lg mb-1">20 - 200 RMB</p>
+                    <p class="text-stone-500 font-medium">Illegal parking, minor continuous infractions where driver refuses to move.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-teal-100">
+                    <p class="text-teal-700 font-bold text-lg mb-1">200 - 2,000 RMB</p>
+                    <p class="text-stone-500 font-medium">Driving without a license, speeding >50%, fleeing a non-criminal accident.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-teal-100">
+                    <p class="text-teal-700 font-bold text-lg mb-1">2,000 - 5,000 RMB</p>
+                    <p class="text-stone-500 font-medium">Using forged or altered license plates, certificates, or driving licenses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 info-card accent-bar-indigo p-6 md:p-8 panel-animate">
+            <h2 class="text-2xl font-bold text-stone-800 mb-8 flex items-center"><span class="bg-indigo-100 text-indigo-600 p-2 rounded-lg mr-3"><i class="fas fa-sort-amount-down"></i></span> Point Deduction Ledger</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="border-l border-red-500 pl-4">
-                    <h3 class="text-red-500 font-bold text-xl mb-3">12 Points</h3>
-                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
-                        <li>DUI (Drinking and driving).</li>
-                        <li>Driving wrong way / reversing on expressway.</li>
-                        <li>Using fake/forged license plates.</li>
-                        <li>Speeding >50% on expressway.</li>
-                        <li>Fleeing a non-criminal accident.</li>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-red-600 font-bold text-xl mb-3 flex items-center"><span class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-2">12</span> Points</h3>
+                    <ul class="text-sm text-stone-600 font-medium space-y-3 list-none">
+                        <li class="pl-3 border-l-2 border-red-200">DUI (Drinking and driving).</li>
+                        <li class="pl-3 border-l-2 border-red-200">Driving wrong way / reversing on expressway.</li>
+                        <li class="pl-3 border-l-2 border-red-200">Using fake/forged license plates.</li>
+                        <li class="pl-3 border-l-2 border-red-200">Speeding >50% on expressway.</li>
                     </ul>
                 </div>
 
-                <div class="border-l border-orange-500 pl-4">
-                    <h3 class="text-orange-500 font-bold text-xl mb-3">9 Points</h3>
-                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
-                        <li>Deliberately obscuring/defacing license plates.</li>
-                        <li>Illegal parking on a city expressway.</li>
-                        <li>Driving a vehicle class that doesn't match your license.</li>
-                        <li>Driving a vehicle without a plate.</li>
+                <div>
+                    <h3 class="text-orange-600 font-bold text-xl mb-3 flex items-center"><span class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mr-2">9</span> Points</h3>
+                    <ul class="text-sm text-stone-600 font-medium space-y-3 list-none">
+                        <li class="pl-3 border-l-2 border-orange-200">Deliberately obscuring license plates.</li>
+                        <li class="pl-3 border-l-2 border-orange-200">Illegal parking on a city expressway.</li>
+                        <li class="pl-3 border-l-2 border-orange-200">Driving a mismatched vehicle class.</li>
+                        <li class="pl-3 border-l-2 border-orange-200">Driving a vehicle without a plate.</li>
                     </ul>
                 </div>
 
-                <div class="border-l border-yellow-500 pl-4">
-                    <h3 class="text-yellow-500 font-bold text-xl mb-3">6 Points</h3>
-                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
-                        <li>Running a red traffic light.</li>
-                        <li>Illegal occupation of the emergency lane.</li>
-                        <li>Failing to yield to a school bus.</li>
-                        <li>Driving with a suspended license.</li>
+                <div>
+                    <h3 class="text-amber-600 font-bold text-xl mb-3 flex items-center"><span class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mr-2">6</span> Points</h3>
+                    <ul class="text-sm text-stone-600 font-medium space-y-3 list-none">
+                        <li class="pl-3 border-l-2 border-amber-200">Running a red traffic light.</li>
+                        <li class="pl-3 border-l-2 border-amber-200">Occupying the emergency lane.</li>
+                        <li class="pl-3 border-l-2 border-amber-200">Failing to yield to a school bus.</li>
+                        <li class="pl-3 border-l-2 border-amber-200">Driving with a suspended license.</li>
                     </ul>
                 </div>
 
-                <div class="border-l border-sky-500 pl-4">
-                    <h3 class="text-sky-500 font-bold text-xl mb-3">3 Points</h3>
-                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
-                        <li>Failing to yield to pedestrians at crosswalks.</li>
-                        <li>Speeding <20% over limit on expressways.</li>
-                        <li>Making a call / holding phone while driving.</li>
-                        <li>Not slowing down at railway crossings.</li>
+                <div>
+                    <h3 class="text-indigo-600 font-bold text-xl mb-3 flex items-center"><span class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center mr-2">3</span> Points</h3>
+                    <ul class="text-sm text-stone-600 font-medium space-y-3 list-none">
+                        <li class="pl-3 border-l-2 border-indigo-200">Failing to yield at crosswalks.</li>
+                        <li class="pl-3 border-l-2 border-indigo-200">Speeding <20% over limit on expressways.</li>
+                        <li class="pl-3 border-l-2 border-indigo-200">Making a call / holding phone while driving.</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="col-6 glass-panel p-6 md:p-8 panel-animate">
-            <h2 class="text-xl text-white mb-6 border-b border-sky-500/30 pb-2"><i class="fas fa-medkit mr-3 text-sky-400"></i>First Aid Protocols</h2>
-            <div class="space-y-4 text-sm text-gray-300">
-                <p><strong class="text-sky-400">Arterial Bleeding:</strong> Blood is bright red and spurts. Apply pressure <span class="text-white bg-gray-800 px-1">closer to the heart</span> (above the wound).</p>
-                <p><strong class="text-sky-400">Venous Bleeding:</strong> Blood is dark red and flows continuously. Apply pressure <span class="text-white bg-gray-800 px-1">away from the heart</span> (below the wound).</p>
-                <p><strong class="text-sky-400">Fractures:</strong> NEVER attempt to reset a protruding bone. Keep the casualty immobilized and splint in place.</p>
-                <p><strong class="text-sky-400">Burns:</strong> Spray with cold water. Do NOT pop blisters. Do NOT peel off clothing stuck to the skin.</p>
+        <div class="col-6 info-card p-6 md:p-8 panel-animate bg-gradient-to-br from-white to-stone-50">
+            <h2 class="text-xl font-bold text-stone-800 mb-6 flex items-center"><span class="text-orange-600 mr-2"><i class="fas fa-medkit"></i></span> First Aid Protocols</h2>
+            <div class="space-y-4 text-sm text-stone-600 font-medium">
+                <p><strong class="text-stone-900">Arterial Bleeding:</strong> Blood is bright red and spurts. Apply pressure <span class="bg-orange-100 text-orange-800 px-2 py-0.5 rounded">closer to the heart</span>.</p>
+                <p><strong class="text-stone-900">Venous Bleeding:</strong> Blood is dark red and flows. Apply pressure <span class="bg-orange-100 text-orange-800 px-2 py-0.5 rounded">away from the heart</span>.</p>
+                <p><strong class="text-stone-900">Fractures:</strong> NEVER attempt to reset a bone. Keep the casualty immobilized and splint in place.</p>
+                <p><strong class="text-stone-900">Burns:</strong> Spray with cold water. Do NOT pop blisters or peel clothing stuck to the skin.</p>
             </div>
         </div>
 
-        <div class="col-6 glass-panel p-6 md:p-8 panel-animate">
-            <h2 class="text-xl text-white mb-6 border-b border-sky-500/30 pb-2"><i class="fas fa-car-battery mr-3 text-sky-400"></i>Mechanical & Environmental</h2>
-            <div class="space-y-4 text-sm text-gray-300">
-                <p><strong class="text-sky-400">ABS Braking:</strong> In an emergency, press the brake pedal down <span class="text-white bg-gray-800 px-1">firmly and hold it</span>. Never pump ABS brakes. ABS allows you to steer while braking.</p>
-                <p><strong class="text-sky-400">Tire Blowout:</strong> Hold the steering wheel firmly with both hands, release the accelerator, and brake gently. <span class="text-red-400 font-bold">NEVER slam the brakes.</span></p>
-                <p><strong class="text-sky-400">Fog Protocol:</strong> Turn on fog lights and hazard lights. <span class="text-red-400 font-bold">NEVER use high beams</span> as the light reflects off the fog and blinds you.</p>
-                <p><strong class="text-sky-400">Aquaplaning:</strong> Release the accelerator immediately. Keep the steering wheel straight. Do not brake hard.</p>
+        <div class="col-6 info-card p-6 md:p-8 panel-animate bg-gradient-to-br from-white to-stone-50">
+            <h2 class="text-xl font-bold text-stone-800 mb-6 flex items-center"><span class="text-teal-600 mr-2"><i class="fas fa-car-battery"></i></span> Mechanical Variables</h2>
+            <div class="space-y-4 text-sm text-stone-600 font-medium">
+                <p><strong class="text-stone-900">ABS Braking:</strong> Press the pedal down <span class="bg-teal-100 text-teal-800 px-2 py-0.5 rounded">firmly and hold it</span>. Never pump ABS brakes.</p>
+                <p><strong class="text-stone-900">Tire Blowout:</strong> Hold steering wheel firmly, release accelerator, brake gently. <span class="text-red-600 font-bold">NEVER slam the brakes.</span></p>
+                <p><strong class="text-stone-900">Fog Protocol:</strong> Turn on fog and hazard lights. <span class="text-red-600 font-bold">NEVER use high beams</span> (blinds the driver).</p>
+                <p><strong class="text-stone-900">Aquaplaning:</strong> Release the accelerator immediately. Keep the steering straight.</p>
             </div>
         </div>
 
     </div>
 
     <script>
-        // GSAP Initialization
-        document.addEventListener("DOMContentLoaded", (event) => {
+        // Smooth entrance animations using GSAP
+        document.addEventListener("DOMContentLoaded", () => {
             gsap.fromTo(".panel-animate", 
-                { y: 30, opacity: 0 }, 
-                { y
+                { y: 40, opacity: 0 }, 
+                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
+            );
+        });
+    </script>
+</body>
+</html>
