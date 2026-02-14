@@ -10,64 +10,25 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap');
         
-        body {
-            background-color: #ffffff; /* Crisp white background */
-            color: #292524; /* stone-800 */
-            font-family: 'Outfit', sans-serif;
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3, .display-font {
-            font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -0.03em;
-        }
-
-        .info-card {
-            background: #fafaf9; /* subtle off-white */
-            border-radius: 16px;
-            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
-            border: 1px solid #f5f5f4;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .info-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px -10px rgba(234, 88, 12, 0.15); /* Orange tinted shadow */
-        }
-        
+        body { background-color: #ffffff; color: #292524; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+        h1, h2, h3, .display-font { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
+        .info-card { background: #fafaf9; border-radius: 16px; box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05); border: 1px solid #f5f5f4; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .info-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px -10px rgba(234, 88, 12, 0.15); }
         .accent-bar-orange { border-left: 6px solid #ea580c; }
         .accent-bar-red { border-left: 6px solid #ef4444; }
         .accent-bar-yellow { border-left: 6px solid #eab308; }
         .accent-bar-blue { border-left: 6px solid #0ea5e9; }
         .accent-bar-teal { border-top: 6px solid #0d9488; }
-
-        /* Asymmetrical Grid Layout */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .col-12 { grid-column: span 12; }
-        .col-8 { grid-column: span 8; }
-        .col-4 { grid-column: span 4; }
-        .col-6 { grid-column: span 6; }
-
-        @media (max-width: 1024px) {
-            .col-8, .col-4, .col-6 { grid-column: span 12; }
-        }
-
-        /* Tab hiding logic */
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+        .col-12 { grid-column: span 12; } .col-8 { grid-column: span 8; } .col-4 { grid-column: span 4; } .col-6 { grid-column: span 6; }
+        @media (max-width: 1024px) { .col-8, .col-4, .col-6 { grid-column: span 12; } }
         .tab-content { display: none; }
-        .tab-content.active { display: grid; } /* Using grid because of bento-grid */
+        .tab-content.active { display: grid; }
     </style>
 </head>
 <body class="p-4 md:p-8 lg:p-12">
 
     <div class="max-w-7xl mx-auto">
-        
         <header class="mb-8 flex flex-col md:flex-row justify-between items-end border-b-2 border-stone-100 pb-6 panel-animate">
             <div>
                 <a href="index.html" class="inline-flex items-center text-sm font-bold text-stone-400 hover:text-orange-600 transition mb-4 uppercase tracking-wider bg-stone-50 px-4 py-2 rounded-lg border border-stone-200 shadow-sm">
@@ -88,13 +49,13 @@
                 <h2 class="text-2xl font-bold text-stone-800 mb-6 flex items-center"><span class="bg-orange-100 text-orange-600 p-2 rounded-lg mr-3"><i class="fas fa-user-shield"></i></span> Police Hand Signals</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="space-y-4 text-stone-600 font-medium">
-                        <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Stop Signal</strong> Left arm raised straight up, palm facing forward. ALL traffic must stop.</p>
+                        <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Stop Signal</strong> Left arm raised straight up, palm facing forward.</p>
                         <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Straight Ahead</strong> Left arm raised sideways, right arm sweeps across chest.</p>
-                        <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Left Turn</strong> Right arm points to the right, left arm sweeps forward.</p>
-                        <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Pull Over</strong> Left arm raised straight up, right arm points down and sweeps horizontally.</p>
+                        <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Left Turn</strong> Right arm points right, left arm sweeps forward.</p>
+                        <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Pull Over</strong> Left arm raised straight up, right arm points down and sweeps.</p>
                     </div>
                     <div class="bg-stone-100 p-4 rounded-2xl border border-stone-200 shadow-inner flex flex-col items-center justify-center text-center h-full min-h-[300px]">
-                        <img src="http://googleusercontent.com/image_collection/image_retrieval/5987288509675933516_0" alt="Police Signals Chart" class="rounded-lg mb-4 w-full object-cover shadow-sm bg-white" />
+                        <img src="police-chart.jpg" alt="Upload police-chart.jpg to GitHub" class="rounded-lg mb-4 w-full object-cover shadow-sm bg-white border-2 border-dashed border-stone-300" onerror="this.src='https://placehold.co/600x400/ea580c/white?text=Upload+police-chart.jpg\nto+GitHub'" />
                         <p class="text-sm text-stone-500 font-medium italic">Memorize the arm angles. The left arm usually indicates the target traffic.</p>
                     </div>
                 </div>
@@ -103,7 +64,7 @@
             <div class="col-4 info-card accent-bar-red p-6 md:p-8 panel-animate">
                 <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-red-600 mr-2"><i class="fas fa-ban"></i></span> Prohibition</h2>
                 <div class="mb-4 bg-white p-2 rounded-lg border border-red-100 shadow-inner h-32 flex justify-center items-center overflow-hidden">
-                    <img src="http://googleusercontent.com/image_collection/image_retrieval/17941931242575020596_0" alt="Prohibition Signs" class="w-full h-full object-cover" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/China_road_sign_Prohibition_42.svg/200px-China_road_sign_Prohibition_42.svg.png" alt="Prohibition Signs" class="h-full object-contain" />
                 </div>
                 <div class="space-y-2 text-sm text-stone-600 font-medium">
                     <p><strong class="text-red-600">Logic:</strong> "Do Not Do This."</p>
@@ -114,7 +75,7 @@
             <div class="col-4 info-card accent-bar-yellow p-6 md:p-8 panel-animate">
                 <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-yellow-500 mr-2"><i class="fas fa-exclamation-triangle"></i></span> Warning</h2>
                 <div class="mb-4 bg-white p-2 rounded-lg border border-yellow-100 shadow-inner h-32 flex justify-center items-center overflow-hidden">
-                    <img src="http://googleusercontent.com/image_collection/image_retrieval/4137714820523945246_0" alt="Warning Signs" class="w-full h-full object-cover" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/China_road_sign_Warning_01.svg/200px-China_road_sign_Warning_01.svg.png" alt="Warning Signs" class="h-full object-contain" />
                 </div>
                 <div class="space-y-2 text-sm text-stone-600 font-medium">
                     <p><strong class="text-yellow-600">Logic:</strong> "Hazard Ahead, Slow Down."</p>
@@ -125,93 +86,64 @@
             <div class="col-4 info-card accent-bar-blue p-6 md:p-8 panel-animate">
                 <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-blue-500 mr-2"><i class="fas fa-arrow-circle-right"></i></span> Mandatory</h2>
                 <div class="mb-4 bg-white p-2 rounded-lg border border-blue-100 shadow-inner h-32 flex justify-center items-center overflow-hidden">
-                    <img src="http://googleusercontent.com/image_collection/image_retrieval/2256710360114207258_0" alt="Mandatory Signs" class="h-full object-cover" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/China_road_sign_Mandatory_01.svg/200px-China_road_sign_Mandatory_01.svg.png" alt="Mandatory Signs" class="h-full object-contain" />
                 </div>
                 <div class="space-y-2 text-sm text-stone-600 font-medium">
                     <p><strong class="text-blue-600">Logic:</strong> "You MUST Do This."</p>
                     <p>Solid blue circle with a white symbol or arrow inside.</p>
                 </div>
             </div>
-
         </div>
 
         <div id="simulator" class="tab-content bento-grid w-full">
             <div class="col-12 info-card accent-bar-teal p-6 md:p-8 bg-teal-50/20 panel-animate">
                 <h2 class="text-2xl font-bold text-stone-800 mb-6 flex items-center">
-                    <span class="bg-teal-100 text-teal-700 p-2 rounded-lg mr-3"><i class="fas fa-brain"></i></span> 
-                    Diagnostic Simulator
+                    <span class="bg-teal-100 text-teal-700 p-2 rounded-lg mr-3"><i class="fas fa-brain"></i></span> Diagnostic Simulator
                 </h2>
-                
                 <div id="flashcard-container" class="bg-white p-6 md:p-8 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
                     <div class="absolute top-0 left-0 h-1 bg-stone-100 w-full">
                         <div id="progress-bar" class="h-full bg-orange-500 transition-all duration-300 w-0"></div>
                     </div>
-
                     <div class="flex flex-col md:flex-row gap-8 items-center">
                         <div class="w-full md:w-1/3 bg-stone-50 rounded-xl p-6 flex flex-col items-center justify-center min-h-[250px] border border-stone-200 shadow-inner">
                             <img id="card-visual" src="" alt="Traffic Sign Visual" class="h-32 object-contain mb-4 drop-shadow-md rounded" />
                             <p id="card-desc" class="text-stone-500 font-bold text-center text-sm px-4">Visual Prompt</p>
                         </div>
-
                         <div class="w-full md:w-2/3">
                             <h3 id="question-text" class="text-xl font-bold text-stone-800 mb-4">Booting Simulator...</h3>
-                            <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                </div>
-                            
+                            <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
                             <div id="feedback-area" class="mt-4 hidden rounded-lg p-4 font-bold text-sm border"></div>
-                            
                             <button id="next-q-btn" class="mt-4 hidden px-8 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition w-full md:w-auto shadow-lg shadow-teal-600/20" onclick="nextCard()">Next Signal <i class="fas fa-arrow-right ml-2"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
-        // Tab Switching Logic with GSAP Animation
         function switchTab(tabId, btnElement) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Reset all buttons
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('bg-white', 'text-orange-600', 'border-t-4', 'border-orange-600', 'shadow-[0_-4px_10px_-5px_rgba(0,0,0,0.1)]');
                 btn.classList.add('bg-stone-50', 'text-stone-400');
             });
-            
-            // Activate selected tab
             document.getElementById(tabId).classList.add('active');
-            
-            // Highlight selected button
             if(btnElement) {
                 btnElement.classList.remove('bg-stone-50', 'text-stone-400');
                 btnElement.classList.add('bg-white', 'text-orange-600', 'border-t-4', 'border-orange-600', 'shadow-[0_-4px_10px_-5px_rgba(0,0,0,0.1)]');
             }
-
-            // Animate panels in the newly active tab
-            gsap.fromTo(`#${tabId} .panel-animate`, 
-                { y: 30, opacity: 0 }, 
-                { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" }
-            );
+            gsap.fromTo(`#${tabId} .panel-animate`, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" });
         }
 
-        // Initialize animations on load
         document.addEventListener("DOMContentLoaded", () => {
-            gsap.fromTo(".panel-animate", 
-                { y: 30, opacity: 0 }, 
-                { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }
-            );
-            loadCard(); // Boot the simulator
+            gsap.fromTo(".panel-animate", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+            loadCard(); 
         });
 
-        // Flashcard Data Bank (Now using Google Images)
         const flashcards = [
             {
-                image: "http://googleusercontent.com/image_collection/image_retrieval/10808442288106018512_0",
+                image: "police-stop.jpg", // EXPECTING LOCAL FILE
                 desc: "Police: Left arm raised straight up, palm facing forward.",
                 q: "What does this police hand signal indicate?",
                 opts: ["Pull over to the right", "Stop all traffic", "Proceed straight", "Turn left"],
@@ -219,7 +151,7 @@
                 exp: "This is the universal Stop Signal. When the police officer raises their left hand straight up, all traffic must halt behind the stop line."
             },
             {
-                image: "http://googleusercontent.com/image_collection/image_retrieval/15985136092526348628_0",
+                image: "police-pullover.jpg", // EXPECTING LOCAL FILE
                 desc: "Police: Left arm raised up, right arm pointing down and sweeping.",
                 q: "How should you react to this signal?",
                 opts: ["Accelerate and pass", "Stop immediately in lane", "Pull over to the side and stop", "Turn right"],
@@ -227,7 +159,7 @@
                 exp: "This is the Pull Over signal. The left arm commands you to stop, and the right arm sweeps to direct you to the side of the road."
             },
             {
-                image: "http://googleusercontent.com/image_collection/image_retrieval/16771585938518265189_0",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/China_road_sign_Prohibition_42.svg/200px-China_road_sign_Prohibition_42.svg.png",
                 desc: "Sign: White background, solid red circle border.",
                 q: "What does this specific red circle sign indicate?",
                 opts: ["No Parking", "No Entry", "No U-Turn", "Stop and Yield"],
@@ -235,12 +167,12 @@
                 exp: "A red circle with a horizontal white bar or a blank center indicates No Entry. Red circles always indicate strict prohibition."
             },
             {
-                image: "http://googleusercontent.com/image_collection/image_retrieval/2256710360114207258_0",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/China_road_sign_Mandatory_01.svg/200px-China_road_sign_Mandatory_01.svg.png",
                 desc: "Sign: Solid blue circle, white arrow pointing straight up.",
                 q: "What does this mandatory sign require you to do?",
                 opts: ["One-way street ahead", "Go straight only", "Minimum speed limit 50", "Expressway entrance ahead"],
                 ans: 1,
-                exp: "A white arrow in a blue circle means you MUST follow that direction. In this case, Go Straight Only. (A one-way street sign is a rectangle, not a circle)."
+                exp: "A white arrow in a blue circle means you MUST follow that direction. In this case, Go Straight Only."
             }
         ];
 
@@ -248,8 +180,11 @@
 
         function loadCard() {
             const card = flashcards[currentCard];
-            // Inject Image URL
-            document.getElementById('card-visual').src = card.image;
+            const imgEl = document.getElementById('card-visual');
+            imgEl.src = card.image;
+            // Fallback for missing local files in simulator
+            imgEl.onerror = () => { imgEl.src = 'https://placehold.co/200x200/ea580c/white?text=Upload+Image\nTo+GitHub'; };
+            
             document.getElementById('card-desc').innerText = card.desc;
             document.getElementById('question-text').innerText = `Question ${currentCard + 1}: ${card.q}`;
             
@@ -266,10 +201,7 @@
 
             document.getElementById('feedback-area').classList.add('hidden');
             document.getElementById('next-q-btn').classList.add('hidden');
-            
-            // Update progress
-            const progress = ((currentCard) / flashcards.length) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-bar').style.width = `${((currentCard) / flashcards.length) * 100}%`;
         }
 
         function checkCardAnswer(selectedIndex, btnElement) {
@@ -277,55 +209,26 @@
             const feedback = document.getElementById('feedback-area');
             const buttons = document.getElementById('options-grid').children;
             
-            // Disable all buttons to prevent double clicking
-            for(let b of buttons) {
-                b.disabled = true;
-                b.classList.add('opacity-50', 'cursor-not-allowed');
-                b.classList.remove('hover:border-teal-400', 'hover:bg-teal-50');
-            }
-
+            for(let b of buttons) { b.disabled = true; b.classList.add('opacity-50', 'cursor-not-allowed'); b.classList.remove('hover:border-teal-400', 'hover:bg-teal-50'); }
             feedback.className = 'mt-4 rounded-lg p-4 font-bold text-sm border';
 
             if (selectedIndex === card.ans) {
-                btnElement.classList.replace('bg-white', 'bg-teal-500');
-                btnElement.classList.replace('border-stone-100', 'border-teal-600');
-                btnElement.classList.replace('text-stone-700', 'text-white');
-                btnElement.classList.remove('opacity-50');
-                
-                feedback.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Correct! ${card.exp}`;
-                feedback.classList.add('bg-teal-50', 'text-teal-800', 'border-teal-200');
+                btnElement.classList.replace('bg-white', 'bg-teal-500'); btnElement.classList.replace('border-stone-100', 'border-teal-600'); btnElement.classList.replace('text-stone-700', 'text-white'); btnElement.classList.remove('opacity-50');
+                feedback.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Correct! ${card.exp}`; feedback.classList.add('bg-teal-50', 'text-teal-800', 'border-teal-200');
             } else {
-                btnElement.classList.replace('bg-white', 'bg-red-500');
-                btnElement.classList.replace('border-stone-100', 'border-red-600');
-                btnElement.classList.replace('text-stone-700', 'text-white');
-                btnElement.classList.remove('opacity-50');
-                
-                feedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Incorrect. ${card.exp}`;
-                feedback.classList.add('bg-red-50', 'text-red-800', 'border-red-200');
-                
-                // Highlight the correct answer in teal
-                buttons[card.ans].classList.replace('bg-white', 'bg-teal-500');
-                buttons[card.ans].classList.replace('border-stone-100', 'border-teal-600');
-                buttons[card.ans].classList.replace('text-stone-700', 'text-white');
-                buttons[card.ans].classList.remove('opacity-50');
+                btnElement.classList.replace('bg-white', 'bg-red-500'); btnElement.classList.replace('border-stone-100', 'border-red-600'); btnElement.classList.replace('text-stone-700', 'text-white'); btnElement.classList.remove('opacity-50');
+                feedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Incorrect. ${card.exp}`; feedback.classList.add('bg-red-50', 'text-red-800', 'border-red-200');
+                buttons[card.ans].classList.replace('bg-white', 'bg-teal-500'); buttons[card.ans].classList.replace('border-stone-100', 'border-teal-600'); buttons[card.ans].classList.replace('text-stone-700', 'text-white'); buttons[card.ans].classList.remove('opacity-50');
             }
             
             document.getElementById('next-q-btn').classList.remove('hidden');
             document.getElementById('progress-bar').style.width = `${((currentCard + 1) / flashcards.length) * 100}%`;
-            
-            if (currentCard === flashcards.length - 1) {
-                document.getElementById('next-q-btn').innerHTML = 'Restart Engine <i class="fas fa-redo ml-2"></i>';
-            }
+            if (currentCard === flashcards.length - 1) { document.getElementById('next-q-btn').innerHTML = 'Restart Engine <i class="fas fa-redo ml-2"></i>'; }
         }
 
         function nextCard() {
-            if (currentCard < flashcards.length - 1) {
-                currentCard++;
-                loadCard();
-            } else {
-                currentCard = 0; // Loop back to start
-                loadCard();
-            }
+            if (currentCard < flashcards.length - 1) { currentCard++; loadCard(); } 
+            else { currentCard = 0; loadCard(); }
         }
     </script>
 </body>
