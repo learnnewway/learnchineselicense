@@ -3,246 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subject 1: China Driving Command Center</title>
+    <title>Subject 1: Master Telemetry</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Syncopate:wght@400;700&display=swap');
+        
+        body {
+            background-color: #050505;
+            color: #e5e7eb;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, .sync-font {
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: -0.05em;
+        }
+
+        .glass-panel {
+            background: rgba(15, 20, 30, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-left: 4px solid #38bdf8;
+            border-radius: 4px;
+        }
+        
+        .glass-panel.gold-accent {
+            border-left: 4px solid #fbbf24;
+            border-color: rgba(251, 191, 36, 0.2);
+        }
+
+        .glass-panel.red-accent {
+            border-left: 4px solid #ef4444;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .data-row {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .data-row:hover {
+            background: rgba(56, 189, 248, 0.05);
+            transform: translateX(8px);
+            border-left: 2px solid #38bdf8;
+            padding-left: 1rem;
+        }
+
+        /* Asymmetrical Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+
+        @media (max-width: 1024px) {
+            .col-8, .col-4, .col-6 { grid-column: span 12; }
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #38bdf8; }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body class="p-4 md:p-8 lg:p-12">
 
-    <div class="max-w-5xl mx-auto">
-        <header class="mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
+    <div class="max-w-7xl mx-auto bento-grid">
+        
+        <header class="col-12 mb-6 flex flex-col md:flex-row justify-between items-end border-b border-gray-800 pb-6 panel-animate">
             <div>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-blue-400 tracking-tight mb-2">
-                    <i class="fas fa-satellite-dish mr-3"></i>Subject 1 Command Center
-                </h1>
-                <p class="text-slate-400 text-lg">Operational parameters and telemetry for the Chinese driving theory exam.</p>
+                <p class="text-sky-400 text-sm font-bold tracking-widest mb-2 uppercase">Subject 1 // Advanced Database</p>
+                <h1 class="text-4xl md:text-6xl font-bold text-white uppercase">Engineered <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600">Elegance</span></h1>
             </div>
-            <div class="mt-4 md:mt-0 text-right glass-panel p-4 rounded-xl">
-                <p class="text-sm text-slate-300">Target Score: <span class="text-green-400 font-bold text-xl">90/100</span></p>
-                <p class="text-sm text-slate-300">Time Limit: <span class="text-blue-400 font-bold">45 Mins</span></p>
+            <div class="text-right mt-4 md:mt-0">
+                <p class="text-gray-500 text-sm">System Status: <span class="text-green-400">ONLINE</span></p>
+                <p class="text-gray-500 text-sm">Data Integrity: <span class="text-sky-400">100%</span></p>
             </div>
         </header>
 
-        <nav class="flex space-x-2 md:space-x-4 mb-8 overflow-x-auto pb-2">
-            <button onclick="switchTab('rules')" class="tab-btn active px-6 py-3 rounded-lg font-semibold bg-blue-600 text-white transition hover:bg-blue-500 shadow-lg shadow-blue-500/30 whitespace-nowrap"><i class="fas fa-book mr-2"></i>Core Directives</button>
-            <button onclick="switchTab('points')" class="tab-btn px-6 py-3 rounded-lg font-semibold bg-slate-800 text-slate-300 transition hover:bg-slate-700 whitespace-nowrap"><i class="fas fa-exclamation-triangle mr-2"></i>Point Deductions</button>
-            <button onclick="switchTab('visuals')" class="tab-btn px-6 py-3 rounded-lg font-semibold bg-slate-800 text-slate-300 transition hover:bg-slate-700 whitespace-nowrap"><i class="fas fa-traffic-light mr-2"></i>Visual Nav</button>
-            <button onclick="switchTab('tips')" class="tab-btn px-6 py-3 rounded-lg font-semibold bg-slate-800 text-slate-300 transition hover:bg-slate-700 whitespace-nowrap"><i class="fas fa-lightbulb mr-2"></i>Exam Hacks</button>
-            <button onclick="switchTab('quiz')" class="tab-btn px-6 py-3 rounded-lg font-semibold bg-purple-600 text-white transition hover:bg-purple-500 shadow-lg shadow-purple-500/30 whitespace-nowrap"><i class="fas fa-gamepad mr-2"></i>Simulation</button>
-        </nav>
+        <div class="col-8 glass-panel red-accent p-6 md:p-8 panel-animate">
+            <h2 class="text-2xl text-white mb-6 border-b border-red-500/30 pb-2"><i class="fas fa-gavel mr-3 text-red-500"></i>The Revocation Matrix (Bans)</h2>
+            <div class="space-y-4 text-sm">
+                <div class="data-row p-3 flex justify-between items-center">
+                    <span class="text-gray-300 w-2/3">Fleeing a fatal accident (constituting a crime)</span>
+                    <span class="text-red-400 font-bold bg-red-900/30 px-3 py-1 rounded">LIFETIME BAN</span>
+                </div>
+                <div class="data-row p-3 flex justify-between items-center">
+                    <span class="text-gray-300 w-2/3">DUI causing a major traffic accident</span>
+                    <span class="text-red-400 font-bold bg-red-900/30 px-3 py-1 rounded">LIFETIME BAN</span>
+                </div>
+                <div class="data-row p-3 flex justify-between items-center">
+                    <span class="text-gray-300 w-2/3">Drunk driving a commercial vehicle</span>
+                    <span class="text-orange-400 font-bold bg-orange-900/30 px-3 py-1 rounded">10 YEAR BAN</span>
+                </div>
+                <div class="data-row p-3 flex justify-between items-center">
+                    <span class="text-gray-300 w-2/3">Drunk driving (Standard DUI) causing accident</span>
+                    <span class="text-yellow-400 font-bold bg-yellow-900/30 px-3 py-1 rounded">5 YEAR BAN</span>
+                </div>
+                <div class="data-row p-3 flex justify-between items-center">
+                    <span class="text-gray-300 w-2/3">Fraud/Cheating to obtain license</span>
+                    <span class="text-gray-400 font-bold bg-gray-800 px-3 py-1 rounded">3 YEAR BAN</span>
+                </div>
+            </div>
+        </div>
 
-        <div id="rules" class="tab-content active glass-panel rounded-2xl p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-white mb-6 border-b border-slate-600 pb-2">Critical Operating Parameters</h2>
+        <div class="col-4 glass-panel gold-accent p-6 md:p-8 panel-animate">
+            <h2 class="text-xl text-white mb-6 border-b border-yellow-500/30 pb-2"><i class="fas fa-file-invoice-dollar mr-3 text-yellow-500"></i>Fines Database</h2>
+            <div class="space-y-4 text-sm">
+                <div class="bg-gray-900/50 p-4 rounded border border-gray-800 hover:border-yellow-500/50 transition">
+                    <p class="text-yellow-400 font-bold text-lg mb-1">20 - 200 RMB</p>
+                    <p class="text-gray-400 text-xs">Illegal parking, minor continuous infractions where driver refuses to move.</p>
+                </div>
+                <div class="bg-gray-900/50 p-4 rounded border border-gray-800 hover:border-yellow-500/50 transition">
+                    <p class="text-yellow-400 font-bold text-lg mb-1">200 - 2,000 RMB</p>
+                    <p class="text-gray-400 text-xs">Driving without a license, speeding >50%, fleeing an accident (non-criminal).</p>
+                </div>
+                <div class="bg-gray-900/50 p-4 rounded border border-gray-800 hover:border-yellow-500/50 transition">
+                    <p class="text-yellow-400 font-bold text-lg mb-1">2,000 - 5,000 RMB</p>
+                    <p class="text-gray-400 text-xs">Using forged or altered license plates, certificates, or driving licenses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 glass-panel p-6 md:p-8 panel-animate">
+            <h2 class="text-2xl text-white mb-6 border-b border-sky-500/30 pb-2"><i class="fas fa-sort-amount-down mr-3 text-sky-400"></i>Point Deduction Ledger</h2>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600">
-                    <h3 class="font-bold text-blue-400 text-lg mb-3"><i class="fas fa-tachometer-alt mr-2"></i>Speed Vectors</h3>
-                    <ul class="space-y-3 text-slate-300 text-sm">
-                        <li><span class="text-white font-semibold">Urban (No center line):</span> Max 30 km/h.</li>
-                        <li><span class="text-white font-semibold">Urban (One lane per direction):</span> Max 50 km/h.</li>
-                        <li><span class="text-white font-semibold">Highway (No center line):</span> Max 40 km/h.</li>
-                        <li><span class="text-white font-semibold">Highway (One lane per direction):</span> Max 70 km/h.</li>
-                        <li><span class="text-white font-semibold">Expressway limits:</span> Min 60 km/h, Max 120 km/h.</li>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="border-l border-red-500 pl-4">
+                    <h3 class="text-red-500 font-bold text-xl mb-3">12 Points</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
+                        <li>DUI (Drinking and driving).</li>
+                        <li>Driving wrong way / reversing on expressway.</li>
+                        <li>Using fake/forged license plates.</li>
+                        <li>Speeding >50% on expressway.</li>
+                        <li>Fleeing a non-criminal accident.</li>
                     </ul>
                 </div>
 
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600">
-                    <h3 class="font-bold text-blue-400 text-lg mb-3"><i class="fas fa-random mr-2"></i>Right-of-Way Logic</h3>
-                    <ul class="space-y-3 text-slate-300 text-sm">
-                        <li>Always yield to the <strong class="text-amber-400">RIGHT</strong> at uncontrolled intersections.</li>
-                        <li>Turning vehicles yield to straight-moving vehicles.</li>
-                        <li>Right-turning vehicles yield to left-turning vehicles entering the same vector.</li>
-                        <li>Going uphill? The uphill vehicle has priority, unless the downhill vehicle is already halfway down.</li>
+                <div class="border-l border-orange-500 pl-4">
+                    <h3 class="text-orange-500 font-bold text-xl mb-3">9 Points</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
+                        <li>Deliberately obscuring/defacing license plates.</li>
+                        <li>Illegal parking on a city expressway.</li>
+                        <li>Driving a vehicle class that doesn't match your license.</li>
+                        <li>Driving a vehicle without a plate.</li>
+                    </ul>
+                </div>
+
+                <div class="border-l border-yellow-500 pl-4">
+                    <h3 class="text-yellow-500 font-bold text-xl mb-3">6 Points</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
+                        <li>Running a red traffic light.</li>
+                        <li>Illegal occupation of the emergency lane.</li>
+                        <li>Failing to yield to a school bus.</li>
+                        <li>Driving with a suspended license.</li>
+                    </ul>
+                </div>
+
+                <div class="border-l border-sky-500 pl-4">
+                    <h3 class="text-sky-500 font-bold text-xl mb-3">3 Points</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 list-disc ml-4">
+                        <li>Failing to yield to pedestrians at crosswalks.</li>
+                        <li>Speeding <20% over limit on expressways.</li>
+                        <li>Making a call / holding phone while driving.</li>
+                        <li>Not slowing down at railway crossings.</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div id="points" class="tab-content glass-panel rounded-2xl p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-600 pb-2">The 12-Point Structural Limit</h2>
-            <p class="text-slate-400 mb-6">Accumulating 12 points in a single cycle results in immediate license suspension. Memorize these critical failures.</p>
-            
-            <div class="space-y-4">
-                <div class="bg-red-900/40 border border-red-500 p-4 rounded-xl">
-                    <h3 class="font-bold text-red-400 text-lg mb-2">12-Point Fatalities (Instant Fail)</h3>
-                    <p class="text-sm text-slate-300">DUI, fleeing an accident, driving without a plate, driving a mismatched vehicle class, speeding >50% over limit, driving backwards on an expressway.</p>
-                </div>
-                <div class="bg-orange-900/40 border border-orange-500 p-4 rounded-xl">
-                    <h3 class="font-bold text-orange-400 text-lg mb-2">6-Point Major Errors</h3>
-                    <p class="text-sm text-slate-300">Running a red light, illegal occupation of the expressway emergency lane, speeding 20%-50% over limit, driving with a suspended license.</p>
-                </div>
-                <div class="bg-yellow-900/40 border border-yellow-500 p-4 rounded-xl">
-                    <h3 class="font-bold text-yellow-400 text-lg mb-2">3 & 2-Point Infractions</h3>
-                    <p class="text-sm text-slate-300"><strong class="text-white">3 Pts:</strong> Failing to yield at a crosswalk, speeding <20% over limit. <strong class="text-white">2 Pts:</strong> Using a phone, no seatbelt, parking violations.</p>
-                </div>
+        <div class="col-6 glass-panel p-6 md:p-8 panel-animate">
+            <h2 class="text-xl text-white mb-6 border-b border-sky-500/30 pb-2"><i class="fas fa-medkit mr-3 text-sky-400"></i>First Aid Protocols</h2>
+            <div class="space-y-4 text-sm text-gray-300">
+                <p><strong class="text-sky-400">Arterial Bleeding:</strong> Blood is bright red and spurts. Apply pressure <span class="text-white bg-gray-800 px-1">closer to the heart</span> (above the wound).</p>
+                <p><strong class="text-sky-400">Venous Bleeding:</strong> Blood is dark red and flows continuously. Apply pressure <span class="text-white bg-gray-800 px-1">away from the heart</span> (below the wound).</p>
+                <p><strong class="text-sky-400">Fractures:</strong> NEVER attempt to reset a protruding bone. Keep the casualty immobilized and splint in place.</p>
+                <p><strong class="text-sky-400">Burns:</strong> Spray with cold water. Do NOT pop blisters. Do NOT peel off clothing stuck to the skin.</p>
             </div>
         </div>
 
-        <div id="visuals" class="tab-content glass-panel rounded-2xl p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-white mb-6 border-b border-slate-600 pb-2">Visual Recognition Systems</h2>
-            <p class="text-slate-300 mb-4">Traffic police hand signals override ALL electronic traffic lights. You must be able to decode these instantly.</p>
-            
-            <div class="bg-slate-800 p-4 rounded-xl border border-slate-600 mb-6 text-center">
-                <p class="text-slate-400 italic">[Your image assets for traffic signs will render here]</p>
-                </div>
-            
-            <div class="bg-slate-800 p-4 rounded-xl border border-slate-600 text-center">
-                <p class="text-slate-400 italic">[Your image assets for police hand signals will render here]</p>
-                 </div>
-        </div>
-
-        <div id="tips" class="tab-content glass-panel rounded-2xl p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-white mb-6 border-b border-slate-600 pb-2">Exam Psychology & Hacks</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600">
-                    <h3 class="text-blue-400 font-bold mb-2"><i class="fas fa-language mr-2"></i>The "Chinglish" Filter</h3>
-                    <p class="text-slate-300 text-sm">The English translation is notoriously clunky. If a question seems illogical, think about the literal Chinese translation. "Violating the provisions" just means breaking a rule.</p>
-                </div>
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600">
-                    <h3 class="text-blue-400 font-bold mb-2"><i class="fas fa-shield-alt mr-2"></i>The Golden Rule of Safety</h3>
-                    <p class="text-slate-300 text-sm">If an answer choice contains the words <strong>"rapidly", "immediately", "accelerate", or "forcefully"</strong>, it is almost ALWAYS wrong. The correct answer is usually the one that mentions "decelerate", "yield", or "observe safely".</p>
-                </div>
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600">
-                    <h3 class="text-blue-400 font-bold mb-2"><i class="fas fa-car-crash mr-2"></i>Accident Logic</h3>
-                    <p class="text-slate-300 text-sm">If there is an accident with no injuries, you must take photos, MOVE the car to avoid blocking traffic, and then negotiate. If there are injuries, DO NOT move the vehicles. Rescue the injured first.</p>
-                </div>
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600">
-                    <h3 class="text-blue-400 font-bold mb-2"><i class="fas fa-mobile-alt mr-2"></i>Preparation Tools</h3>
-                    <p class="text-slate-300 text-sm">Do not take the exam without practicing the exact bank of 1,500 questions. Download <strong>Laowai Drive</strong> or <strong>Drive in China</strong> and run mock tests until you consistently hit 95+.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="quiz" class="tab-content glass-panel rounded-2xl p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-white mb-6 border-b border-slate-600 pb-2">Diagnostic Simulation</h2>
-            
-            <div id="quiz-container" class="bg-slate-800 p-6 rounded-xl border border-slate-600">
-                <p id="question-text" class="text-xl font-semibold text-white mb-6">1. When driving on an expressway, if you miss your exit, you should:</p>
-                <div class="space-y-3" id="options-container">
-                    <button class="w-full text-left p-4 rounded-lg bg-slate-700 hover:bg-blue-600 transition text-slate-200" onclick="checkAnswer(false)">A. Reverse carefully on the shoulder.</button>
-                    <button class="w-full text-left p-4 rounded-lg bg-slate-700 hover:bg-blue-600 transition text-slate-200" onclick="checkAnswer(false)">B. Make a U-turn across the median.</button>
-                    <button class="w-full text-left p-4 rounded-lg bg-slate-700 hover:bg-blue-600 transition text-slate-200" onclick="checkAnswer(true)">C. Continue to the next exit.</button>
-                    <button class="w-full text-left p-4 rounded-lg bg-slate-700 hover:bg-blue-600 transition text-slate-200" onclick="checkAnswer(false)">D. Stop immediately and ask for help.</button>
-                </div>
-                <div id="feedback" class="mt-4 hidden p-4 rounded-lg font-bold"></div>
-            </div>
-            
-            <div class="mt-6 flex justify-between items-center">
-                <p class="text-slate-400">Question <span id="q-num">1</span> of 3</p>
-                <button id="next-btn" class="hidden px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500" onclick="nextQuestion()">Next Question <i class="fas fa-arrow-right ml-2"></i></button>
+        <div class="col-6 glass-panel p-6 md:p-8 panel-animate">
+            <h2 class="text-xl text-white mb-6 border-b border-sky-500/30 pb-2"><i class="fas fa-car-battery mr-3 text-sky-400"></i>Mechanical & Environmental</h2>
+            <div class="space-y-4 text-sm text-gray-300">
+                <p><strong class="text-sky-400">ABS Braking:</strong> In an emergency, press the brake pedal down <span class="text-white bg-gray-800 px-1">firmly and hold it</span>. Never pump ABS brakes. ABS allows you to steer while braking.</p>
+                <p><strong class="text-sky-400">Tire Blowout:</strong> Hold the steering wheel firmly with both hands, release the accelerator, and brake gently. <span class="text-red-400 font-bold">NEVER slam the brakes.</span></p>
+                <p><strong class="text-sky-400">Fog Protocol:</strong> Turn on fog lights and hazard lights. <span class="text-red-400 font-bold">NEVER use high beams</span> as the light reflects off the fog and blinds you.</p>
+                <p><strong class="text-sky-400">Aquaplaning:</strong> Release the accelerator immediately. Keep the steering wheel straight. Do not brake hard.</p>
             </div>
         </div>
 
     </div>
 
     <script>
-        // Tab Navigation Logic
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-600', 'bg-purple-600', 'text-white', 'shadow-lg');
-                btn.classList.add('bg-slate-800', 'text-slate-300');
-            });
-            
-            document.getElementById(tabId).classList.add('active');
-            
-            const activeBtn = event.currentTarget;
-            activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
-            if(tabId === 'quiz') {
-                activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-lg', 'shadow-purple-500/30');
-            } else {
-                activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
-            }
-        }
-
-        // Mini Quiz Logic
-        const questions = [
-            {
-                q: "When driving on an expressway, if you miss your exit, you should:",
-                opts: ["Reverse carefully on the shoulder.", "Make a U-turn across the median.", "Continue to the next exit.", "Stop immediately and ask for help."],
-                ans: 2,
-                exp: "Expressways are strictly forward-vector only. Reversing or U-turning is a 12-point instant failure."
-            },
-            {
-                q: "What is the penalty for fleeing the scene of a traffic accident constituting a crime?",
-                opts: ["Revocation of license, cannot reapply for 5 years.", "Revocation of license, cannot reapply for life.", "6-point deduction.", "Detention for 15 days."],
-                ans: 1,
-                exp: "Fleeing an accident that constitutes a crime results in a lifetime ban from acquiring a driver's license."
-            },
-            {
-                q: "If an intersection has no traffic lights or signs, who has the right of way?",
-                opts: ["The vehicle moving the fastest.", "The vehicle approaching from the left.", "The vehicle approaching from the right.", "The heavier vehicle."],
-                ans: 2,
-                exp: "At uncontrolled intersections, you must always yield to traffic approaching from your right."
-            }
-        ];
-
-        let currentQ = 0;
-
-        function renderQuestion() {
-            document.getElementById('question-text').innerText = `${currentQ + 1}. ${questions[currentQ].q}`;
-            const optsContainer = document.getElementById('options-container');
-            optsContainer.innerHTML = '';
-            
-            const labels = ['A', 'B', 'C', 'D'];
-            questions[currentQ].opts.forEach((opt, index) => {
-                const isCorrect = index === questions[currentQ].ans;
-                optsContainer.innerHTML += `<button class="w-full text-left p-4 rounded-lg bg-slate-700 hover:bg-blue-600 transition text-slate-200" onclick="checkAnswer(${isCorrect}, this, '${questions[currentQ].exp}')">${labels[index]}. ${opt}</button>`;
-            });
-            
-            document.getElementById('feedback').classList.add('hidden');
-            document.getElementById('next-btn').classList.add('hidden');
-            document.getElementById('q-num').innerText = currentQ + 1;
-        }
-
-        function checkAnswer(isCorrect, btnElement, explanation) {
-            const feedback = document.getElementById('feedback');
-            const buttons = document.querySelectorAll('#options-container button');
-            
-            // Disable all buttons
-            buttons.forEach(btn => btn.disabled = true);
-            
-            feedback.classList.remove('hidden', 'bg-green-900/50', 'text-green-400', 'bg-red-900/50', 'text-red-400', 'border-green-500', 'border-red-500');
-            feedback.classList.add('border');
-
-            if (isCorrect) {
-                btnElement.classList.replace('bg-slate-700', 'bg-green-600');
-                feedback.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Correct. ${explanation}`;
-                feedback.classList.add('bg-green-900/50', 'text-green-400', 'border-green-500');
-            } else {
-                btnElement.classList.replace('bg-slate-700', 'bg-red-600');
-                feedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Incorrect. ${explanation}`;
-                feedback.classList.add('bg-red-900/50', 'text-red-400', 'border-red-500');
-                
-                // Highlight correct answer
-                buttons[questions[currentQ].ans].classList.replace('bg-slate-700', 'bg-green-600');
-            }
-            
-            if (currentQ < questions.length - 1) {
-                document.getElementById('next-btn').classList.remove('hidden');
-            } else {
-                document.getElementById('next-btn').innerText = "Simulation Complete";
-                document.getElementById('next-btn').classList.remove('hidden');
-                document.getElementById('next-btn').disabled = true;
-                document.getElementById('next-btn').classList.replace('bg-blue-600', 'bg-slate-600');
-            }
-        }
-
-        function nextQuestion() {
-            currentQ++;
-            renderQuestion();
-        }
-
-        // Init
-        renderQuestion();
-    </script>
-</body>
-</html>
+        // GSAP Initialization
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.fromTo(".panel-animate", 
+                { y: 30, opacity: 0 }, 
+                { y
