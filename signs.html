@@ -54,17 +54,21 @@
                         <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Left Turn</strong> Right arm points right, left arm sweeps forward.</p>
                         <p class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm"><strong class="text-orange-600 text-lg block mb-1">Pull Over</strong> Left arm raised straight up, right arm points down and sweeps.</p>
                     </div>
-                    <div class="bg-stone-100 p-4 rounded-2xl border border-stone-200 shadow-inner flex flex-col items-center justify-center text-center h-full min-h-[300px]">
-                        <img src="police-chart.jpg" alt="Upload police-chart.jpg to GitHub" class="rounded-lg mb-4 w-full object-cover shadow-sm bg-white border-2 border-dashed border-stone-300" onerror="this.src='https://placehold.co/600x400/ea580c/white?text=Upload+police-chart.jpg\nto+GitHub'" />
-                        <p class="text-sm text-stone-500 font-medium italic">Memorize the arm angles. The left arm usually indicates the target traffic.</p>
+                    <div class="bg-stone-50 p-6 rounded-2xl border-2 border-dashed border-orange-300 flex flex-col items-center justify-center text-center h-full min-h-[300px] relative overflow-hidden group">
+                        <i class="fas fa-image text-5xl text-orange-200 mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-orange-700 font-bold text-xl mb-2">Awaiting Local Asset</h3>
+                        <p class="text-sm text-stone-500 font-medium max-w-xs">Upload your own chart to GitHub named <code class="bg-orange-100 text-orange-800 px-2 py-1 rounded">police-chart.jpg</code> to display it here.</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-4 info-card accent-bar-red p-6 md:p-8 panel-animate">
                 <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-red-600 mr-2"><i class="fas fa-ban"></i></span> Prohibition</h2>
-                <div class="mb-4 bg-white p-2 rounded-lg border border-red-100 shadow-inner h-32 flex justify-center items-center overflow-hidden">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/China_road_sign_Prohibition_42.svg/200px-China_road_sign_Prohibition_42.svg.png" alt="Prohibition Signs" class="h-full object-contain" />
+                <div class="mb-4 bg-white p-4 rounded-lg border border-red-100 shadow-inner h-32 flex justify-center items-center">
+                    <svg viewBox="0 0 100 100" class="h-full drop-shadow-md">
+                        <circle cx="50" cy="50" r="45" fill="#ef4444"/>
+                        <rect x="20" y="42" width="60" height="16" fill="white"/>
+                    </svg>
                 </div>
                 <div class="space-y-2 text-sm text-stone-600 font-medium">
                     <p><strong class="text-red-600">Logic:</strong> "Do Not Do This."</p>
@@ -74,19 +78,26 @@
 
             <div class="col-4 info-card accent-bar-yellow p-6 md:p-8 panel-animate">
                 <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-yellow-500 mr-2"><i class="fas fa-exclamation-triangle"></i></span> Warning</h2>
-                <div class="mb-4 bg-white p-2 rounded-lg border border-yellow-100 shadow-inner h-32 flex justify-center items-center overflow-hidden">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/China_road_sign_Warning_01.svg/200px-China_road_sign_Warning_01.svg.png" alt="Warning Signs" class="h-full object-contain" />
+                <div class="mb-4 bg-white p-4 rounded-lg border border-yellow-100 shadow-inner h-32 flex justify-center items-center">
+                    <svg viewBox="0 0 100 100" class="h-full drop-shadow-md">
+                        <polygon points="50,10 90,90 10,90" fill="#eab308" stroke="#1c1917" stroke-width="4"/>
+                        <rect x="46" y="35" width="8" height="30" fill="#1c1917" rx="2"/>
+                        <circle cx="50" cy="78" r="5" fill="#1c1917"/>
+                    </svg>
                 </div>
                 <div class="space-y-2 text-sm text-stone-600 font-medium">
-                    <p><strong class="text-yellow-600">Logic:</strong> "Hazard Ahead, Slow Down."</p>
+                    <p><strong class="text-yellow-600">Logic:</strong> "Hazard Ahead."</p>
                     <p>Yellow triangle, black border, black symbol inside.</p>
                 </div>
             </div>
 
             <div class="col-4 info-card accent-bar-blue p-6 md:p-8 panel-animate">
                 <h2 class="text-xl font-bold text-stone-800 mb-4 flex items-center"><span class="text-blue-500 mr-2"><i class="fas fa-arrow-circle-right"></i></span> Mandatory</h2>
-                <div class="mb-4 bg-white p-2 rounded-lg border border-blue-100 shadow-inner h-32 flex justify-center items-center overflow-hidden">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/China_road_sign_Mandatory_01.svg/200px-China_road_sign_Mandatory_01.svg.png" alt="Mandatory Signs" class="h-full object-contain" />
+                <div class="mb-4 bg-white p-4 rounded-lg border border-blue-100 shadow-inner h-32 flex justify-center items-center">
+                    <svg viewBox="0 0 100 100" class="h-full drop-shadow-md">
+                        <circle cx="50" cy="50" r="45" fill="#0ea5e9"/>
+                        <path d="M50,25 L50,75 M35,45 L50,25 L65,45" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
                 <div class="space-y-2 text-sm text-stone-600 font-medium">
                     <p><strong class="text-blue-600">Logic:</strong> "You MUST Do This."</p>
@@ -105,10 +116,8 @@
                         <div id="progress-bar" class="h-full bg-orange-500 transition-all duration-300 w-0"></div>
                     </div>
                     <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="w-full md:w-1/3 bg-stone-50 rounded-xl p-6 flex flex-col items-center justify-center min-h-[250px] border border-stone-200 shadow-inner">
-                            <img id="card-visual" src="" alt="Traffic Sign Visual" class="h-32 object-contain mb-4 drop-shadow-md rounded" />
-                            <p id="card-desc" class="text-stone-500 font-bold text-center text-sm px-4">Visual Prompt</p>
-                        </div>
+                        <div class="w-full md:w-1/3 bg-stone-50 rounded-xl p-6 flex flex-col items-center justify-center min-h-[250px] border border-stone-200 shadow-inner" id="visual-container">
+                            </div>
                         <div class="w-full md:w-2/3">
                             <h3 id="question-text" class="text-xl font-bold text-stone-800 mb-4">Booting Simulator...</h3>
                             <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
@@ -141,9 +150,10 @@
             loadCard(); 
         });
 
+        // Flashcards upgraded to use embedded HTML/SVG instead of image URLs
         const flashcards = [
             {
-                image: "police-stop.jpg", // EXPECTING LOCAL FILE
+                visual: `<div class="bg-orange-100 text-orange-800 w-full h-32 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-orange-300"><i class="fas fa-hand-paper text-3xl mb-2 text-orange-400"></i><span class="font-bold text-sm text-center px-2">Local Image Required<br>(police-stop.jpg)</span></div>`,
                 desc: "Police: Left arm raised straight up, palm facing forward.",
                 q: "What does this police hand signal indicate?",
                 opts: ["Pull over to the right", "Stop all traffic", "Proceed straight", "Turn left"],
@@ -151,7 +161,7 @@
                 exp: "This is the universal Stop Signal. When the police officer raises their left hand straight up, all traffic must halt behind the stop line."
             },
             {
-                image: "police-pullover.jpg", // EXPECTING LOCAL FILE
+                visual: `<div class="bg-orange-100 text-orange-800 w-full h-32 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-orange-300"><i class="fas fa-hand-point-right text-3xl mb-2 text-orange-400"></i><span class="font-bold text-sm text-center px-2">Local Image Required<br>(police-pullover.jpg)</span></div>`,
                 desc: "Police: Left arm raised up, right arm pointing down and sweeping.",
                 q: "How should you react to this signal?",
                 opts: ["Accelerate and pass", "Stop immediately in lane", "Pull over to the side and stop", "Turn right"],
@@ -159,7 +169,7 @@
                 exp: "This is the Pull Over signal. The left arm commands you to stop, and the right arm sweeps to direct you to the side of the road."
             },
             {
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/China_road_sign_Prohibition_42.svg/200px-China_road_sign_Prohibition_42.svg.png",
+                visual: `<svg viewBox="0 0 100 100" class="h-32 drop-shadow-md"><circle cx="50" cy="50" r="45" fill="#ef4444"/><rect x="20" y="42" width="60" height="16" fill="white"/></svg>`,
                 desc: "Sign: White background, solid red circle border.",
                 q: "What does this specific red circle sign indicate?",
                 opts: ["No Parking", "No Entry", "No U-Turn", "Stop and Yield"],
@@ -167,7 +177,7 @@
                 exp: "A red circle with a horizontal white bar or a blank center indicates No Entry. Red circles always indicate strict prohibition."
             },
             {
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/China_road_sign_Mandatory_01.svg/200px-China_road_sign_Mandatory_01.svg.png",
+                visual: `<svg viewBox="0 0 100 100" class="h-32 drop-shadow-md"><circle cx="50" cy="50" r="45" fill="#0ea5e9"/><path d="M50,25 L50,75 M35,45 L50,25 L65,45" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
                 desc: "Sign: Solid blue circle, white arrow pointing straight up.",
                 q: "What does this mandatory sign require you to do?",
                 opts: ["One-way street ahead", "Go straight only", "Minimum speed limit 50", "Expressway entrance ahead"],
@@ -180,12 +190,11 @@
 
         function loadCard() {
             const card = flashcards[currentCard];
-            const imgEl = document.getElementById('card-visual');
-            imgEl.src = card.image;
-            // Fallback for missing local files in simulator
-            imgEl.onerror = () => { imgEl.src = 'https://placehold.co/200x200/ea580c/white?text=Upload+Image\nTo+GitHub'; };
             
-            document.getElementById('card-desc').innerText = card.desc;
+            // Injecting HTML/SVG instead of Image URLs
+            const container = document.getElementById('visual-container');
+            container.innerHTML = card.visual + `<p class="text-stone-500 font-bold text-center text-sm px-4 mt-4">${card.desc}</p>`;
+            
             document.getElementById('question-text').innerText = `Question ${currentCard + 1}: ${card.q}`;
             
             const optionsGrid = document.getElementById('options-grid');
