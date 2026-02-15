@@ -94,6 +94,10 @@
             </div>
 
             <div class="max-w-4xl mx-auto">
+                <div id="visual-prompt-container" class="hidden w-full bg-white rounded-2xl border border-stone-200 shadow-sm p-6 mb-8 flex justify-center items-center min-h-[200px]">
+                    <img id="visual-prompt-img" src="" alt="Exam Visual Prompt" class="max-h-64 object-contain drop-shadow-md rounded-lg" />
+                </div>
+
                 <h3 id="question-text" class="text-2xl md:text-3xl font-bold text-stone-800 mb-8 leading-tight">Loading Payload...</h3>
                 
                 <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -266,6 +270,18 @@
             document.getElementById('q-counter').innerText = `Question ${currentIndex + 1} of ${sessionBank.length}`;
             document.getElementById('question-text').innerText = qData.Question;
             
+            // NEW: Image Rendering Logic
+            const imgContainer = document.getElementById('visual-prompt-container');
+            const imgElement = document.getElementById('visual-prompt-img');
+            
+            if (qData.Image && qData.Image.trim() !== "") {
+                imgElement.src = qData.Image.trim();
+                imgContainer.classList.remove('hidden');
+            } else {
+                imgContainer.classList.add('hidden');
+                imgElement.src = ""; // Clear old image
+            }
+
             if(!telemetryData.seen.includes(qData.Question)) {
                 telemetryData.seen.push(qData.Question);
             }
@@ -287,7 +303,7 @@
 
             document.getElementById('feedback-area').classList.add('hidden');
             document.getElementById('next-q-btn').classList.add('hidden');
-            document.getElementById('reveal-btn').classList.remove('hidden'); // Show Reveal button
+            document.getElementById('reveal-btn').classList.remove('hidden');
             document.getElementById('exam-progress-bar').style.width = `${(currentIndex / sessionBank.length) * 100}%`;
         }
 
@@ -326,27 +342,23 @@
                 }
             }
             
-            document.getElementById('reveal-btn').classList.add('hidden'); // Hide reveal
+            document.getElementById('reveal-btn').classList.add('hidden');
             document.getElementById('next-q-btn').classList.remove('hidden');
         }
 
-        // NEW: Reveal Logic
         function revealAnswer() {
             const qData = sessionBank[currentIndex];
             const feedback = document.getElementById('feedback-area');
             const buttons = document.getElementById('options-grid').children;
             const cor = qData.Answer ? qData.Answer.trim().toUpperCase() : "";
 
-            // Lock options
             for(let b of buttons) { b.disabled = true; b.classList.add('opacity-50', 'cursor-not-allowed'); b.classList.remove('hover:border-teal-400', 'hover:bg-teal-50'); }
             
-            // Mark as wrong/revealed to track weakness
             wrongCount++;
             document.getElementById('score-wrong').innerText = wrongCount;
             telemetryData.errors[qData.Question] = (telemetryData.errors[qData.Question] || 0) + 1;
             saveTelemetry();
 
-            // Highlight correct
             for(let b of buttons) {
                 if(b.innerText.startsWith(cor)) {
                     b.classList.replace('bg-white', 'bg-teal-500'); b.classList.replace('border-stone-100', 'border-teal-600'); b.classList.replace('text-stone-700', 'text-white'); b.classList.remove('opacity-50');
@@ -366,7 +378,6 @@
             loadQuestion();
         }
 
-        // NEW: Abort Logic
         function abortExam() {
             if(confirm("Are you sure you want to end the simulation early? Your score will be calculated based on the questions you have answered so far.")) {
                 finishExam(true);
@@ -391,7 +402,6 @@
                 alert("Simulation Aborted. No data recorded.");
             }
             
-            // Return to dashboard
             window.location.reload();
         }
     </script>
