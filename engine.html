@@ -36,7 +36,6 @@
         </header>
 
         <div id="dashboard-hub" class="col-12 bento-grid w-full m-0 p-0">
-            
             <div class="col-8 info-card accent-bar-orange p-8 panel-animate flex flex-col justify-center">
                 <h2 class="text-2xl font-bold text-stone-800 mb-2"><i class="fas fa-microchip text-orange-600 mr-2"></i> Dynamic Exam Generator</h2>
                 <p class="text-stone-500 mb-8 font-medium">The system will cross-reference your local memory and pull exactly <strong class="text-stone-800">100 random, unseen questions</strong> from the master payload to simulate a real exam sheet.</p>
@@ -102,8 +101,19 @@
                 
                 <div id="feedback-area" class="mt-8 hidden rounded-2xl p-6 font-bold text-sm border shadow-inner"></div>
                 
-                <div class="mt-8 flex justify-end">
-                    <button id="next-q-btn" class="hidden px-10 py-4 bg-stone-800 text-white rounded-xl font-bold hover:bg-stone-700 transition shadow-xl shadow-stone-900/10 w-full md:w-auto text-lg" onclick="nextQuestion()">Next Parameter <i class="fas fa-arrow-right ml-2"></i></button>
+                <div class="mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <button id="abort-btn" onclick="abortExam()" class="text-stone-400 hover:text-red-500 font-bold transition text-sm uppercase tracking-wider w-full md:w-auto text-left md:text-center p-2">
+                        <i class="fas fa-times-circle mr-2"></i> End Simulation Early
+                    </button>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                        <button id="reveal-btn" onclick="revealAnswer()" class="px-8 py-4 bg-stone-100 text-stone-600 rounded-xl font-bold hover:bg-stone-200 hover:text-stone-800 transition shadow-sm w-full md:w-auto text-lg border border-stone-200">
+                            <i class="fas fa-eye mr-2"></i> Reveal Answer
+                        </button>
+                        <button id="next-q-btn" class="hidden px-10 py-4 bg-stone-800 text-white rounded-xl font-bold hover:bg-stone-700 transition shadow-xl shadow-stone-900/10 w-full md:w-auto text-lg" onclick="nextQuestion()">
+                            Next Parameter <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,29 +121,23 @@
     </div>
 
     <script>
-        // Storage Key
         const STORAGE_KEY = 'subject1_telemetry';
-        
-        // State Variables
         let telemetryData = { seen: [], errors: {}, history: [] };
-        let sessionBank = []; // The 100 random questions for this run
+        let sessionBank = [];
         let currentIndex = 0;
         let correctCount = 0;
         let wrongCount = 0;
         let totalMasterBankSize = 0;
 
-        // Initialize UI and Load Memory on Page Load
         document.addEventListener("DOMContentLoaded", () => {
             gsap.fromTo(".panel-animate", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" });
             loadTelemetry();
-            fetchMasterBankSize(); // Just to get the total number for the progress bar
+            fetchMasterBankSize();
         });
 
         function loadTelemetry() {
             const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                telemetryData = JSON.parse(saved);
-            }
+            if (saved) telemetryData = JSON.parse(saved);
             updateDashboardUI();
         }
 
@@ -152,11 +156,9 @@
         }
 
         function updateDashboardUI() {
-            // Update History
             const historyList = document.getElementById('score-log');
             if (telemetryData.history.length > 0) {
                 historyList.innerHTML = '';
-                // Show last 5 scores
                 telemetryData.history.slice(-5).reverse().forEach(run => {
                     const li = document.createElement('li');
                     const passColor = (run.score / run.total) >= 0.9 ? 'text-teal-400' : 'text-orange-400';
@@ -167,7 +169,6 @@
                 historyList.innerHTML = '<li class="text-stone-600 italic">No exams completed yet.</li>';
             }
 
-            // Update Errors (Top 5 most failed)
             const errorList = document.getElementById('error-log');
             const sortedErrors = Object.entries(telemetryData.errors).sort((a, b) => b[1] - a[1]).slice(0, 5);
             
@@ -184,7 +185,6 @@
             }
         }
 
-        // Just fetch the file to count total questions for the global progress bar
         function fetchMasterBankSize() {
             Papa.parse("mock_test_alpha.csv", {
                 download: true,
@@ -201,14 +201,10 @@
             });
         }
 
-        // Main Boot Function
         function fetchAndBootSimulator() {
             const btn = document.getElementById('boot-btn');
-            const icon = document.getElementById('boot-icon');
-            const txt = document.getElementById('boot-text');
-            
-            icon.className = "fas fa-circle-notch fa-spin text-5xl mb-4 text-orange-500";
-            txt.innerText = "Extracting Payload...";
+            document.getElementById('boot-icon').className = "fas fa-circle-notch fa-spin text-5xl mb-4 text-orange-500";
+            document.getElementById('boot-text').innerText = "Extracting Payload...";
             btn.classList.add('pointer-events-none');
 
             Papa.parse("mock_test_alpha.csv", {
@@ -223,11 +219,8 @@
                     }
 
                     const masterBank = results.data;
-                    
-                    // Filter out seen questions
                     let unseenBank = masterBank.filter(q => !telemetryData.seen.includes(q.Question));
                     
-                    // If we exhausted the bank, reset the seen memory
                     if (unseenBank.length === 0) {
                         alert("Database exhausted! You have answered every question in the payload. Memory banks are resetting for a new cycle.");
                         telemetryData.seen = [];
@@ -237,20 +230,13 @@
                         document.getElementById('global-progress-bar').style.width = '0%';
                     }
 
-                    // Shuffle unseen questions
                     unseenBank = unseenBank.sort(() => Math.random() - 0.5); 
-                    
-                    // Take up to 100 questions for the exam sheet
                     sessionBank = unseenBank.slice(0, 100);
                     
-                    // Reset stats for this run
-                    currentIndex = 0;
-                    correctCount = 0;
-                    wrongCount = 0;
+                    currentIndex = 0; correctCount = 0; wrongCount = 0;
                     document.getElementById('score-correct').innerText = "0";
                     document.getElementById('score-wrong').innerText = "0";
 
-                    // Transition UI
                     document.getElementById('dashboard-hub').classList.add('hidden');
                     document.getElementById('exam-engine').classList.remove('hidden');
                     
@@ -272,7 +258,7 @@
 
         function loadQuestion() {
             if (currentIndex >= sessionBank.length) {
-                finishExam();
+                finishExam(false);
                 return;
             }
 
@@ -280,11 +266,10 @@
             document.getElementById('q-counter').innerText = `Question ${currentIndex + 1} of ${sessionBank.length}`;
             document.getElementById('question-text').innerText = qData.Question;
             
-            // Log as seen instantly
             if(!telemetryData.seen.includes(qData.Question)) {
                 telemetryData.seen.push(qData.Question);
             }
-            saveTelemetry(); // Save incrementally just in case they close the browser early
+            saveTelemetry();
             
             const optionsGrid = document.getElementById('options-grid');
             optionsGrid.innerHTML = '';
@@ -302,6 +287,7 @@
 
             document.getElementById('feedback-area').classList.add('hidden');
             document.getElementById('next-q-btn').classList.add('hidden');
+            document.getElementById('reveal-btn').classList.remove('hidden'); // Show Reveal button
             document.getElementById('exam-progress-bar').style.width = `${(currentIndex / sessionBank.length) * 100}%`;
         }
 
@@ -309,7 +295,6 @@
             const feedback = document.getElementById('feedback-area');
             const buttons = document.getElementById('options-grid').children;
             
-            // Lock options
             for(let b of buttons) { b.disabled = true; b.classList.add('opacity-50', 'cursor-not-allowed'); b.classList.remove('hover:border-teal-400', 'hover:bg-teal-50'); }
             
             feedback.className = 'mt-8 rounded-2xl p-6 font-bold text-base border shadow-inner';
@@ -327,7 +312,6 @@
                 wrongCount++;
                 document.getElementById('score-wrong').innerText = wrongCount;
                 
-                // Track the specific error
                 telemetryData.errors[questionText] = (telemetryData.errors[questionText] || 0) + 1;
                 saveTelemetry();
 
@@ -335,7 +319,6 @@
                 feedback.innerHTML = `<div class="flex items-start"><i class="fas fa-times-circle text-2xl mr-3 mt-1 text-red-600"></i> <div><span class="text-red-900 text-lg">Incorrect. The proper protocol was ${cor}.</span><br><span class="text-red-800 font-medium mt-1 block">${explanation || ''}</span></div></div>`; 
                 feedback.classList.add('bg-red-50', 'border-red-200');
                 
-                // Highlight correct
                 for(let b of buttons) {
                     if(b.innerText.startsWith(cor)) {
                         b.classList.replace('bg-white', 'bg-teal-500'); b.classList.replace('border-stone-100', 'border-teal-600'); b.classList.replace('text-stone-700', 'text-white'); b.classList.remove('opacity-50');
@@ -343,6 +326,38 @@
                 }
             }
             
+            document.getElementById('reveal-btn').classList.add('hidden'); // Hide reveal
+            document.getElementById('next-q-btn').classList.remove('hidden');
+        }
+
+        // NEW: Reveal Logic
+        function revealAnswer() {
+            const qData = sessionBank[currentIndex];
+            const feedback = document.getElementById('feedback-area');
+            const buttons = document.getElementById('options-grid').children;
+            const cor = qData.Answer ? qData.Answer.trim().toUpperCase() : "";
+
+            // Lock options
+            for(let b of buttons) { b.disabled = true; b.classList.add('opacity-50', 'cursor-not-allowed'); b.classList.remove('hover:border-teal-400', 'hover:bg-teal-50'); }
+            
+            // Mark as wrong/revealed to track weakness
+            wrongCount++;
+            document.getElementById('score-wrong').innerText = wrongCount;
+            telemetryData.errors[qData.Question] = (telemetryData.errors[qData.Question] || 0) + 1;
+            saveTelemetry();
+
+            // Highlight correct
+            for(let b of buttons) {
+                if(b.innerText.startsWith(cor)) {
+                    b.classList.replace('bg-white', 'bg-teal-500'); b.classList.replace('border-stone-100', 'border-teal-600'); b.classList.replace('text-stone-700', 'text-white'); b.classList.remove('opacity-50');
+                }
+            }
+
+            feedback.className = 'mt-8 rounded-2xl p-6 font-bold text-base border shadow-inner bg-stone-50 border-stone-200';
+            feedback.innerHTML = `<div class="flex items-start"><i class="fas fa-eye text-2xl mr-3 mt-1 text-stone-500"></i> <div><span class="text-stone-800 text-lg">Answer Revealed: ${cor}</span><br><span class="text-stone-600 font-medium mt-1 block">${qData.Explanation || 'No explanation provided.'}</span></div></div>`; 
+            feedback.classList.remove('hidden');
+
+            document.getElementById('reveal-btn').classList.add('hidden');
             document.getElementById('next-q-btn').classList.remove('hidden');
         }
 
@@ -351,20 +366,32 @@
             loadQuestion();
         }
 
-        function finishExam() {
+        // NEW: Abort Logic
+        function abortExam() {
+            if(confirm("Are you sure you want to end the simulation early? Your score will be calculated based on the questions you have answered so far.")) {
+                finishExam(true);
+            }
+        }
+
+        function finishExam(isEarly = false) {
             document.getElementById('exam-progress-bar').style.width = '100%';
             
-            // Save final score
-            const today = new Date().toLocaleDateString();
-            telemetryData.history.push({ date: today, score: correctCount, total: sessionBank.length });
-            saveTelemetry();
+            const totalAttempted = isEarly ? currentIndex : sessionBank.length;
+            
+            if (totalAttempted > 0) {
+                const today = new Date().toLocaleDateString();
+                telemetryData.history.push({ date: today, score: correctCount, total: totalAttempted });
+                saveTelemetry();
 
-            const passMark = (correctCount / sessionBank.length) >= 0.9;
-            const msg = passMark ? "CONGRATULATIONS. Flight clearance granted." : "FAILURE. License load factor exceeded.";
+                const passMark = (correctCount / totalAttempted) >= 0.9;
+                const msg = passMark ? "CONGRATULATIONS. Flight clearance granted." : "FAILURE. License load factor exceeded.";
+                
+                alert(`Simulation ${isEarly ? 'Aborted' : 'Complete'}.\nFinal Score: ${correctCount}/${totalAttempted}\n${msg}`);
+            } else {
+                alert("Simulation Aborted. No data recorded.");
+            }
             
-            alert(`Simulation Complete.\nFinal Score: ${correctCount}/${sessionBank.length}\n${msg}`);
-            
-            // Reload page to return to dashboard
+            // Return to dashboard
             window.location.reload();
         }
     </script>
