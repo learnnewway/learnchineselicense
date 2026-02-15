@@ -28,18 +28,14 @@
                 <h1 class="text-4xl md:text-5xl font-extrabold text-stone-800 mt-2">Database <span class="text-orange-600">Engine</span></h1>
             </div>
             <div class="text-right mt-4 md:mt-0 bg-white px-5 py-3 rounded-2xl shadow-sm border border-stone-100">
-                <p class="text-stone-500 font-semibold text-sm">Active Payload: <span id="db-status" class="text-red-500 font-bold">Offline</span></p>
+                <p class="text-stone-500 font-semibold text-sm">System Status: <span id="db-status" class="text-orange-500 font-bold"><i class="fas fa-spinner fa-spin mr-1"></i> Booting...</span></p>
             </div>
         </header>
 
-        <div class="info-card accent-bar-orange p-6 md:p-8 mb-8 panel-animate" id="upload-section">
-            <h2 class="text-2xl font-bold text-stone-800 mb-4"><i class="fas fa-network-wired text-orange-600 mr-2"></i> Server Connection</h2>
-            <p class="text-stone-500 mb-6 font-medium">The system is configured to automatically fetch <code class="bg-stone-100 text-stone-700 px-2 py-1 rounded">mock_test_alpha.csv</code> from the repository. Initialize to begin.</p>
-            
-            <button onclick="fetchAndLoadCSV()" class="w-full bg-orange-50 border-2 border-orange-200 hover:bg-orange-500 hover:border-orange-600 hover:text-white text-orange-700 font-bold rounded-xl p-8 transition-all duration-300 shadow-sm flex flex-col items-center justify-center group">
-                <i class="fas fa-satellite-dish text-4xl mb-3 group-hover:animate-pulse"></i>
-                <span class="text-lg">Initialize Telemetry & Boot Simulator</span>
-            </button>
+        <div id="loading-screen" class="info-card accent-bar-orange p-12 text-center panel-animate">
+            <i class="fas fa-database text-6xl text-orange-200 mb-4 animate-pulse"></i>
+            <h2 id="loading-text" class="text-2xl font-bold text-stone-800 mb-2">Ingesting CSV Payload...</h2>
+            <p id="loading-subtext" class="text-stone-500 font-medium">Reading mock_test_alpha.csv from the server.</p>
         </div>
 
         <div id="exam-engine" class="hidden info-card accent-bar-teal p-6 md:p-8 bg-teal-50/20 panel-animate relative overflow-hidden">
@@ -73,47 +69,52 @@
     </div>
 
     <script>
-        gsap.fromTo(".panel-animate", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" });
-
         let questionBank = [];
         let currentIndex = 0;
         let correctCount = 0;
         let wrongCount = 0;
 
-        // Auto-fetch CSV from server
-        function fetchAndLoadCSV() {
-            document.getElementById('db-status').innerHTML = `<i class="fas fa-spinner fa-spin"></i> Fetching...`;
-            document.getElementById('db-status').className = "text-orange-500 font-bold";
+        // Auto-execute exactly on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.fromTo(".panel-animate", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+            fetchAndLoadCSV();
+        });
 
-            // PapaParse fetches directly from the URL
+        function fetchAndLoadCSV() {
             Papa.parse("mock_test_alpha.csv", {
                 download: true,
                 header: true,
                 skipEmptyLines: true,
                 complete: function(results) {
                     if (results.errors.length > 0 && results.data.length === 0) {
-                        alert("Error: mock_test_alpha.csv not found. Did you push it to GitHub?");
-                        document.getElementById('db-status').innerText = "Offline";
+                        handleError("Error: mock_test_alpha.csv not found on server.");
                         return;
                     }
 
                     questionBank = results.data;
-                    // Shuffle the bank for randomness
                     questionBank = questionBank.sort(() => Math.random() - 0.5); 
                     
                     document.getElementById('db-status').innerText = `${questionBank.length} Records Online`;
                     document.getElementById('db-status').className = "text-teal-600 font-bold";
                     
-                    // Swap UI panels
-                    document.getElementById('upload-section').classList.add('hidden');
+                    // Transition UI
+                    document.getElementById('loading-screen').classList.add('hidden');
                     document.getElementById('exam-engine').classList.remove('hidden');
                     
                     loadQuestion();
                 },
                 error: function(err) {
-                    alert("Network error: Could not fetch the CSV file.");
+                    handleError("Network error: Could not fetch the CSV file.");
                 }
             });
+        }
+
+        function handleError(msg) {
+            document.getElementById('db-status').innerText = "System Failure";
+            document.getElementById('db-status').className = "text-red-600 font-bold";
+            document.getElementById('loading-text').innerText = "Data Ingestion Failed";
+            document.getElementById('loading-text').className = "text-2xl font-bold text-red-600 mb-2";
+            document.getElementById('loading-subtext').innerText = msg;
         }
 
         function loadQuestion() {
