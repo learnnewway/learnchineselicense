@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject 1: Mass Ingestion Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap');
+        body { background-color: #fafaf9; color: #292524; font-family: 'Outfit', sans-serif; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
+        .info-card { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05); border: 1px solid #f5f5f4; }
+        .accent-bar-orange { border-left: 6px solid #ea580c; }
+        .accent-bar-teal { border-top: 6px solid #0d9488; }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+
+    <div class="max-w-5xl mx-auto">
+        <header class="mb-8 flex flex-col md:flex-row justify-between items-end border-b-2 border-stone-100 pb-6 panel-animate">
+            <div>
+                <a href="index.html" class="inline-flex items-center text-sm font-bold text-stone-400 hover:text-orange-600 transition mb-4 uppercase tracking-wider bg-stone-50 px-4 py-2 rounded-lg border border-stone-200 shadow-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Command Center
+                </a>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-stone-800 mt-2">Database <span class="text-orange-600">Engine</span></h1>
+            </div>
+            <div class="text-right mt-4 md:mt-0 bg-white px-5 py-3 rounded-2xl shadow-sm border border-stone-100">
+                <p class="text-stone-500 font-semibold text-sm">Active Payload: <span id="db-status" class="text-red-500 font-bold">0 Records Offline</span></p>
+            </div>
+        </header>
+
+        <div class="info-card accent-bar-orange p-6 md:p-8 mb-8 panel-animate" id="upload-section">
+            <h2 class="text-2xl font-bold text-stone-800 mb-4"><i class="fas fa-file-csv text-orange-600 mr-2"></i> Data Ingestion Protocol</h2>
+            <p class="text-stone-500 mb-6 font-medium">Upload your 1,500+ question CSV file here to boot the simulator. The file must have the headers: <strong>Question, A, B, C, D, Answer, Explanation</strong>.</p>
+            
+            <div class="border-2 border-dashed border-stone-300 rounded-xl p-8 text-center bg-stone-50 hover:bg-orange-50 hover:border-orange-300 transition cursor-pointer relative" onclick="document.getElementById('csv-file').click()">
+                <i class="fas fa-cloud-upload-alt text-4xl text-stone-400 mb-3"></i>
+                <p class="text-stone-600 font-bold">Click to Browse or Drag & Drop CSV</p>
+                <input type="file" id="csv-file" accept=".csv" class="hidden" onchange="handleFileUpload(event)">
+            </div>
+        </div>
+
+        <div id="exam-engine" class="hidden info-card accent-bar-teal p-6 md:p-8 bg-teal-50/20 panel-animate relative overflow-hidden">
+            <div class="absolute top-0 left-0 h-1 bg-stone-100 w-full">
+                <div id="progress-bar" class="h-full bg-teal-500 transition-all duration-300 w-0"></div>
+            </div>
+
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-stone-800"><i class="fas fa-tachometer-alt text-teal-600 mr-2"></i> Live Telemetry</h2>
+                <div class="flex space-x-4 text-sm font-bold">
+                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-lg">Score: <span id="score-correct">0</span></span>
+                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-lg">Errors: <span id="score-wrong">0</span></span>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-2xl border border-stone-200 shadow-sm">
+                <p id="q-counter" class="text-teal-600 text-sm font-bold uppercase tracking-wider mb-2">Question 1 of X</p>
+                <h3 id="question-text" class="text-2xl font-bold text-stone-800 mb-6">Awaiting Data...</h3>
+                
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    </div>
+                
+                <div id="feedback-area" class="mt-6 hidden rounded-xl p-5 font-bold text-sm border"></div>
+                
+                <div class="mt-6 flex justify-between items-center">
+                    <button id="next-q-btn" class="hidden px-8 py-3 bg-stone-800 text-white rounded-xl font-bold hover:bg-stone-700 transition shadow-lg w-full md:w-auto" onclick="nextQuestion()">Next Parameter <i class="fas fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        gsap.fromTo(".panel-animate", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+
+        let questionBank = [];
+        let currentIndex = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+
+        // CSV Ingestion Logic
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            document.getElementById('db-status').innerHTML = `<i class="fas fa-spinner fa-spin"></i> Parsing Payload...`;
+            document.getElementById('db-status').className = "text-orange-500 font-bold";
+
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    questionBank = results.data;
+                    // Shuffle the bank for randomness
+                    questionBank = questionBank.sort(() => Math.random() - 0.5); 
+                    
+                    document.getElementById('db-status').innerText = `${questionBank.length} Records Online`;
+                    document.getElementById('db-status').className = "text-teal-600 font-bold";
+                    
+                    document.getElementById('upload-section').classList.add('hidden');
+                    document.getElementById('exam-engine').classList.remove('hidden');
+                    
+                    loadQuestion();
+                },
+                error: function(err) {
+                    alert("Error parsing CSV. Ensure it is a valid format.");
+                }
+            });
+        }
+
+        function loadQuestion() {
+            if (currentIndex >= questionBank.length) {
+                alert(`Simulation Complete. Score: ${correctCount}/${questionBank.length}`);
+                return;
+            }
+
+            const qData = questionBank[currentIndex];
+            document.getElementById('q-counter').innerText = `Question ${currentIndex + 1} of ${questionBank.length}`;
+            document.getElementById('question-text').innerText = qData.Question;
+            
+            const optionsGrid = document.getElementById('options-grid');
+            optionsGrid.innerHTML = '';
+            
+            // Generate options based on CSV headers (A, B, C, D)
+            const options = ['A', 'B', 'C', 'D'];
+            options.forEach(opt => {
+                if(qData[opt]) { // Only render if option exists (handles True/False questions)
+                    const btn = document.createElement('button');
+                    btn.className = 'text-left p-4 rounded-xl bg-stone-50 border-2 border-stone-200 hover:border-teal-400 hover:bg-white text-stone-700 font-bold transition shadow-sm';
+                    btn.innerText = `${opt}. ${qData[opt]}`;
+                    btn.onclick = () => checkAnswer(opt, qData.Answer, qData.Explanation, btn);
+                    optionsGrid.appendChild(btn);
+                }
+            });
+
+            document.getElementById('feedback-area').classList.add('hidden');
+            document.getElementById('next-q-btn').classList.add('hidden');
+            document.getElementById('progress-bar').style.width = `${(currentIndex / questionBank.length) * 100}%`;
+        }
+
+        function checkAnswer(selectedOpt, correctOpt, explanation, btnElement) {
+            const feedback = document.getElementById('feedback-area');
+            const buttons = document.getElementById('options-grid').children;
+            
+            // Lock buttons
+            for(let b of buttons) { b.disabled = true; b.classList.add('opacity-50', 'cursor-not-allowed'); b.classList.remove('hover:border-teal-400', 'hover:bg-white'); }
+            
+            feedback.className = 'mt-6 rounded-xl p-5 font-bold text-sm border';
+
+            // Clean inputs for matching
+            const sel = selectedOpt.trim().toUpperCase();
+            const cor = correctOpt.trim().toUpperCase();
+
+            if (sel === cor) {
+                correctCount++;
+                document.getElementById('score-correct').innerText = correctCount;
+                btnElement.classList.replace('bg-stone-50', 'bg-teal-500'); btnElement.classList.replace('border-stone-200', 'border-teal-600'); btnElement.classList.replace('text-stone-700', 'text-white'); btnElement.classList.remove('opacity-50');
+                feedback.innerHTML = `<i class="fas fa-check-circle mr-2 text-lg"></i> Correct. <br><span class="text-teal-900 font-medium mt-2 block">${explanation || 'No explanation provided in database.'}</span>`; 
+                feedback.classList.add('bg-teal-50', 'text-teal-800', 'border-teal-200');
+            } else {
+                wrongCount++;
+                document.getElementById('score-wrong').innerText = wrongCount;
+                btnElement.classList.replace('bg-stone-50', 'bg-red-500'); btnElement.classList.replace('border-stone-200', 'border-red-600'); btnElement.classList.replace('text-stone-700', 'text-white'); btnElement.classList.remove('opacity-50');
+                feedback.innerHTML = `<i class="fas fa-times-circle mr-2 text-lg"></i> Incorrect. The correct answer was ${cor}. <br><span class="text-red-900 font-medium mt-2 block">${explanation || 'No explanation provided in database.'}</span>`; 
+                feedback.classList.add('bg-red-50', 'text-red-800', 'border-red-200');
+                
+                // Try to highlight the correct answer
+                for(let b of buttons) {
+                    if(b.innerText.startsWith(cor)) {
+                        b.classList.replace('bg-stone-50', 'bg-teal-500'); b.classList.replace('border-stone-200', 'border-teal-600'); b.classList.replace('text-stone-700', 'text-white'); b.classList.remove('opacity-50');
+                    }
+                }
+            }
+            
+            document.getElementById('next-q-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            loadQuestion();
+        }
+    </script>
+</body>
+</html>
